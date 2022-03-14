@@ -1,0 +1,107 @@
+
+
+{% extends "layout_login.html" %}
+
+
+
+{% block title %}
+    Register
+{% endblock %}
+{% block header %}
+{% endblock %}
+
+{% block body %}
+<style>
+
+.login_logo {
+  height: 20vh;
+    }
+.login_height {
+  height: 10%;
+  }
+
+ul {
+    list-style-type: none;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 0.3em;
+    color: #C25A21;
+  }
+
+.btn {
+    background-color: #2C7673;
+    color: #D2EBF0;
+  }
+
+textarea {
+      margin: 0;
+}
+
+label {
+      margin-top: 0.5em;
+      font-size: 1.1em;
+}
+
+input[type=password] {
+    width: 70%;
+    margin: 0 15% 0 15%;
+}
+  
+input[type=text] {
+    width: 70%;
+    margin: 0 15% 0 15%;
+}
+  
+</style>
+
+<div class="col">
+
+{% if message %}
+    <h2>
+        {{ message }}
+    </h2>
+{% endif %}
+
+<!-- <form id="register" action="{% url 'register' %}", method="POST">
+    {% csrf_token %}
+        <div class="form-group">
+            <label>First name</label>
+            <input name="firstName" class="form-control" placeholder="First name" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>Last name</label>
+            <input name="lastName" class="form-control" placeholder="Last name" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>Username</label>
+            <input name="username" class="form-control" placeholder="Username" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>Email address</label>
+            <input  name="email" type="email" class="form-control" placeholder="Email" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input name="password" type="password" class="form-control" placeholder="Password" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>Confirm pasword:</label>
+            <input name="confirmation" type="password" class="form-control"placeholder="Password confirmation" autocomplete="off">
+        </div>
+        <div class="col text-center"><br>
+        <button type="submit" class="btn btn-outline-primary sign_in">Register</button>
+        
+    </div>
+    </form> -->
+
+    <form method = 'post'>
+        {% csrf_token %}
+        {{ form }}
+        <div class = "text-center">
+            <br/>
+            <button class="btn btn-primary" type = 'submit'>Send</button>
+        </div>
+
+    </form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,92 @@
+
+.btn {
+    background-color: $bg;
+    border: none;
+    color: $accent;
+    font-weight: 500;
+    &.sign_in {
+      background-color: $nav;
+      color: $bg;
+    }
+    &:hover {
+      background-color: $accent;
+      color: $bg;
+    }
+    &:focus {
+      background-color: $accent;
+      color: $bg;
+      box-shadow: 0 0 12px $accent_rgba !important; 
+    }
+    &:active {
+      background-color: $accent;
+      color: $bg;
+    }
+    &.send {
+      margin-top: 1em;
+      margin-bottom: 0.5em;
+    }
+  }
+
+input[type=text] {
+  &.form-control {
+    background-color: #FFFFFF;
+    &:focus {
+      border: none !important;
+      outline: none !important;
+      box-shadow: 0 0 12px $accent_rgba !important; 
+    }
+  }
+
+  &.search_form {
+    vertical-align: middle;
+    padding: 1em;
+    background: none;
+    height: 100%;
+    width: 90%;
+    border: none;
+    &::placeholder {
+      font-size: 1.1em;
+      font-weight: 200;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+
+textarea {
+    &.form-control {  
+      border: none;
+      background-color: $bg_text;
+      &:focus {
+        box-shadow: 0 0 10px $accent_rgba; 
+      }
+    }
+  }
+  
+
+textarea {
+  &.question_area {
+    height: 7em;
+    width: 100%;
+  }
+}
+ 
+td {
+  vertical-align: top;
+  padding: 0.3em;
+}
+.question {
+  width: 100%;
+  margin-left: 0.3em;
+}
+
+.btn_div {
+  margin-top: 1em;
+  position:absolute bottom;
+}
+
+.in_btn {
+  bottom: 0;
+}

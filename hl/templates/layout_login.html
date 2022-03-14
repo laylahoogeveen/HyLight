@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link href="{% static 'css/main.css' %}" rel="stylesheet">
+      
+    </head>
+      <!-- <link rel="stylesheet" href="static/css/styles.css" type="text/css"> -->
+        <!-- <link href="static/css/styles.css" rel="stylesheet"> -->
+<body>
+
+    <style>
+        body {
+            background: #D2EBF0 !important;
+        }
+    </style>
+
+
+    <div class="container">
+
+        <div class="row login_height">
+            <div class="col"></div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col"></div>
+            <div class="col-6 text-center">
+                <img class="login_logo" src="{% static 'images/logo/hylight_wit.svg' %}">
+
+                {% block body %}
+                {% endblock %}
+            </div>
+            <div class="col"></div>
+          </div>
+
+          <div class="row login_height">
+            <div class="col"></div>
+          </div>
+          
+    </div>
+
+</body>
+</html>

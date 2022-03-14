@@ -1,0 +1,162 @@
+
+    {% extends "layout.html" %}
+
+    {% block title %}
+        HyLight: dashboard
+    {% endblock %}
+    
+    
+    {% block profile %}
+    
+    
+    {% endblock %}
+    
+    
+    {% block map %}
+    
+        <h4>Profile info</h4>
+        <table class="profile_info">
+            <tr>
+                <td class="def">
+                    Username:
+                </td>
+                <td>
+                    {{request.user.username}}
+                </td>
+            </tr>
+            <tr>
+                <td class="def">
+                    First name:
+                </td>
+                <td>
+                    {{request.user.first_name}}
+                </td>
+            </tr>
+            <tr>
+                <td class="def">
+                    Last name:
+                </td>
+                <td>
+                    {{request.user.last_name}}
+                </td>
+            </tr>
+            <tr>
+                <td class="def">
+                    E-mail address:
+                </td>
+                <td>
+                    {{request.user.email}}
+                </td>
+            </tr>
+            {% if request.user.profile.location %}
+            <tr>                
+                <td class="def">
+                    Current location:
+                </td>
+                <td>
+                    {{request.user.profile.location}}
+                </td>
+            </tr>
+            {%endif %}
+            {% if request.user.profile.available %}
+            <tr>                
+                <td class="def">
+                    Currently available:
+                </td>
+                <td>  
+                    {% if request.user.profile.available == True %}
+                    Yes
+                    {% else %}
+                    No
+                    {% endif %}
+                </td>
+            </tr>
+            {%endif %}
+        </table>
+
+
+    
+    {% endblock %}
+        
+    
+    {% block ask %}
+        
+        <h4>About you</h4>
+        <table class="profile_info">
+            <tr>
+                <td class="def">
+                    Short description:
+                </td>
+                <td>
+                    {{request.user.profile.title}}
+                </td>
+            </tr>
+            <tr>
+                <td class="def">
+                    Bio:
+                </td>
+                <td>
+                    {{request.user.profile.bio}}
+                </td>
+            </tr>
+            </table>
+        
+        <button type="button" class="btn btn-primary float-end send">Change bio</button>
+
+        
+    
+    {% endblock %}
+    
+    {% block questions %}
+        
+        <h4>Educational background</h4>
+
+        <div class="li_division">
+            <h6>Current studies</h6>
+            
+            <ul class="ul">
+                {%for i in request.user.profile.get_current_studies %}
+                
+                <li class="li">
+                    {{i}}
+                </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+
+        <div class="li_division">
+
+            <h6>Past studies</h6>
+            <ul class="ul">
+                {%for i in request.user.profile.get_past_studies %}
+                
+                <li class="li">
+                    {{i}}
+                </li>
+                {% endfor %}
+            </ul>
+            
+        </div>
+    
+        <button type="button" class="btn btn-primary float-end send">Add or remove studies</button>
+
+    
+    {% endblock %}
+    
+    {% block chat %}
+        
+        <h4>Your skills</h4>
+            {%for i in request.user.profile.get_skills %}
+            <ul class="ul">
+            <li class="li">
+                {{i}}
+            </li>
+        </ul>
+
+        {%endfor%}
+        <a href="{% url 'change_skills' %}" class="a_btn">
+            <button type="button" class="btn btn-primary float-end send">Add or remove skills</button>
+        </a>
+    
+    {% endblock %}

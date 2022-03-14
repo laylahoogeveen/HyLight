@@ -1,0 +1,67 @@
+
+.row {
+
+    &.all {
+      height: 100vh;
+      background-color: $bg;
+    }
+    &.search-profile {
+      background-color: #FFFFFF;
+      height: $search-height;
+    }
+    &.full {
+      padding:0;
+      padding-top: $padding;
+    }
+    &.greet {
+      padding:0;
+      // padding-top: $padding / 2;
+    }
+  }
+
+.col {
+    &.navje {
+      background-color: $nav;
+      padding: 0;
+      margin:0;
+    }
+
+    &.left {
+      margin:0;
+      padding:0 0 0 $padding;
+
+      &.searchje {
+          vertical-align: middle;
+        }
+      
+      
+      @at-root .full {
+        height: 35vh;
+      }
+
+      &.side {
+        padding:0 0 0 $padding_side;
+      }
+    }
+    &.right {
+      margin:0;
+      padding:0 $padding 0 $padding;
+      &.side {
+        padding:0 $padding_side 0 $padding;
+      }
+      
+    }
+
+}
+  
+.col-2 {
+  @extend .col;
+}
+  
+.col-8 {
+  @extend .col;
+}
+  
+.col-4 {
+  @extend .col;
+}

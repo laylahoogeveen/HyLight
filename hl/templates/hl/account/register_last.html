@@ -1,0 +1,33 @@
+
+
+{% extends "layout_login.html" %}
+{% load static %}
+
+
+
+{% block title %}
+    Register
+{% endblock %}
+{% block header %}
+{% endblock %}
+
+{% block body %}
+
+<script>
+  setTimeout(function() {
+    window.location.href ="{% url 'index' %}";
+}, 2000);
+</script>
+<div class="col">
+
+    <h5>
+        Account created successfully. Redirecting to the homepage...
+    </h5>
+
+
+
+
+    
+
+</div>
+{% endblock %}

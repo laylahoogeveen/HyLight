@@ -14,14 +14,68 @@
 
 {% block map %}
 
-    <h4>Nearby students</h4>
+    <h4>Ask a question</h4>
+
+
+    
+    <form method = 'post'>
+          {% csrf_token %}
+            <table>
+                
+                        
+                {% for field in form %}
+                
+                {% if field.label == "Title" %}
+                    
+                <td>
+                    {{field.label}}
+                    <br>
+                    {{field}}
+                </td>
+            {%elif field.label == "Study" %}
+                <td>
+                    #{{field.label}}
+                    <br>
+                    
+                    {{field}}
+                </td>
+            </tr>
+            {%elif field.label == "Description" %}
+            </tr>
+            <tr>
+            <td>
+                {{field.label}}
+                <br>
+                {{field}}
+                <br>
+                
+            </td>
+            {% elif field.label == "Skills"%}
+                <td>
+                    #{{field.label}}
+                    {{field}}
+                    <div class="text-center btn_div">
+                        <button class="btn btn-primary float-end in_btn" type = 'submit'>Send</button>
+                    </div>
+                </td>
+            </tr>
+            
+            {% endif %}
+            
+            {% endfor %} 
+        
+        </table>        
+  
+      </form>
+
+
 
 {% endblock %}
     
 
 {% block ask %}
-    
-    <h4>Ask a question</h4>
+<h4>Nearby students</h4>
+
 
 {% endblock %}
 

@@ -14,11 +14,15 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 
-        <link href="{% static 'css/styles.css' %}" rel="stylesheet">
-      
+        <link href="{% static 'css/main.css' %}" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="{% static 'javascript/select.js' %}"></script>
+
     </head>
-      <!-- <link rel="stylesheet" href="static/css/styles.css" type="text/css"> -->
-        <!-- <link href="static/css/styles.css" rel="stylesheet"> -->
+
 <body>
 
 
@@ -35,9 +39,9 @@
             <div class="nav_links">
 
                 <div class="nav_link">
-                    <a href="#" class="nav_linkje">
-                        <img src="{% static 'images/icons/dashboard.svg' %}" class="icon">
-                        Dashboard
+                    <a href="{% url 'index' %}" class="nav_linkje">
+                            <img src="{% static 'images/icons/dashboard.svg' %}" class="icon">
+                            Dashboard
                     </a>
                 </div>
 
@@ -49,7 +53,7 @@
                 </div>
 
                 <div class="nav_link">
-                    <a href="#" class="nav_linkje">
+                    <a href="{% url 'profile' %}" class="nav_linkje">
                         <img src="{% static 'images/icons/settings.svg' %}" class="icon">
                         Settings
                     </a>
@@ -64,32 +68,51 @@
 
             <div class="row search-profile">
 
-                <div class="col-8 left searchje">
+                <div class="col-6 left searchje">
                     <!-- <div class="search"> -->
                         <img class="search_icon" src="{% static 'images/icons/kleur/search.svg' %}" >
                         <input class="search_form" type="text" placeholder="Search for subject, tags or study programme ">
                     <!-- </div> -->
                     
                 </div>
-                <div class="col-4 right profile">
-                    <img class="round_icon" src="{% static 'images/icons/kleur/light.svg' %}" >
-                    <img class="round_icon" src="{% static 'images/icons/kleur/chat.svg' %}" >
-                    <img class="round_icon" src="{% static 'images/icons/kleur/notification.svg' %}" >
-                    <img class="ava_icon" src="{% static 'images/icons/kleur/ava.svg' %}" >
-                    <div class="user_info">
-                        <h5>Layla</h5>
-                        Student
-                    </div>
-                    {% block profile %}
+                <div class="col-6 right profile">
+                    <div class="top_bar_container">
 
-                    {% endblock %}
+                        <div class="profile_buttons">
+                            <img class="round_icon" src="{% static 'images/icons/kleur/light.svg' %}" >
+                            <img class="round_icon" src="{% static 'images/icons/kleur/chat.svg' %}" >
+                            <img class="round_icon" src="{% static 'images/icons/kleur/notification.svg' %}" >
+                            <a href="{% url 'profile' %}" class="a_btn">
+                            <img class="ava_icon" src="{% static 'images/icons/kleur/ava.svg' %}" >
+                        </a>
+                        </div>
+                        <div class="user_info">
+                            <div class="user_titles">
+                                {% if request.user.is_authenticated %} 
+                                <h5>{{ request.user.first_name }}</h5>
+                                <div class="user_subtitle">
+                                    {% if request.user.profile.title %}
+                                    {{ request.user.profile.title }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <a href="{% url 'logout' %}" class="a_btn">
+                            <button type="submit" class="btn btn-sm btn-outline-primary float-right">Sign out</button>
+                        </a>
+                            {% endif %}
+                        {% block profile %}
+
+                        {% endblock %}
+                    </div>
                 </div>
 
             </div>
        
             <div class="row full">
                 <div class="greet">
-                    <h3>Good morning, Layla!</h3>
+                    <h3>Good morning, {{ request.user.first_name }}!</h3>
                 </div>
 
                 <div class="col-8 body-1" style="margin:0">

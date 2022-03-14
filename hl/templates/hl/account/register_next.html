@@ -1,0 +1,149 @@
+
+
+{% extends "layout_login.html" %}
+{% load static %}
+
+
+
+{% block title %}
+    Register
+{% endblock %}
+{% block header %}
+{% endblock %}
+
+{% block body %}
+<script src="{% static 'javascript/forms_jquery.js' %}"></script>
+
+<script src="{% static 'javascript/j2.js' %}"></script>
+
+
+
+
+<style>
+
+.login_logo {
+  height: 20vh;
+    }
+.login_height {
+  height: 10%;
+  }
+
+ul {
+    list-style-type: none;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 0.3em;
+    color: #2C7673;
+    vertical-align: middle;
+    
+  }
+
+.btn {
+    background-color: #2C7673;
+    color: #D2EBF0;
+  }
+
+textarea {
+      margin: 0;
+}
+
+label {
+      margin-top: 0.5em;
+      font-size: 1.1em;
+      height: 100%;
+      width: 100%;
+}
+
+li {
+  display:inline-block;
+  width: 32%;
+  color: rgba(44, 118, 115, 0.7);
+  vertical-align: middle;
+  margin: 0.1em;
+}
+
+.selected_label {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 0.3em;
+  box-shadow: 0 0 5px rgba(194, 90, 33, 0.3) !important; 
+  color: #C25A21;
+  /* border: rgba(44, 118, 115, 0.3) 2px solid; */
+  border: rgba(194, 90, 33, 0.3) 2px solid; 
+  font-weight: 400;
+  vertical-align: middle;
+
+}
+input {
+  transition: box-shadow .3s;
+  box-shadow: none;
+  background: lightgrey;
+  border-radius: 20px;
+}
+
+/* input[type="checkbox":checked]{ 
+  box-shadow: inset 0 0 0 20px #C25A21 ;
+  border-radius: 20px;
+} */
+
+input[type="checkbox"]{ 
+  display: none;
+} 
+
+
+.checkboxes {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+.check_width {
+  width: 30%;
+  display:inline-block;
+}
+
+.user_skills {
+  display: none;
+}
+
+
+</style>
+
+
+<div class="col">
+
+{% if message %}
+    <h6>
+        {{ message }}
+    </h6>
+
+
+{% endif %}
+{%for i in request.user.profile.get_skills %}
+<div class="user_skills">
+
+
+{{i}}
+</div>
+{%endfor%}
+
+
+    <form method = 'post'>
+      <div class = "checkboxes ">
+        {% csrf_token %}
+
+        {{form.label}}
+        {% for field in form %}
+          {{field.label}}
+          {{field}}
+        {% endfor %}
+        
+      </div>
+      <p>
+        <div class = "text-center">
+            <button class="btn btn-primary" type = 'submit'>Send</button>
+        </div>
+      </p>
+
+    </form>
+
+</div>
+{% endblock %}
