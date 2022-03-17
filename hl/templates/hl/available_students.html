@@ -1,0 +1,20 @@
+
+    {% extends "layout_forum.html" %}
+    {% load static %}
+
+{% block title %}
+    HyLight: available students
+{% endblock %}
+
+
+{% block middle %}
+<script src="{% static 'javascript/status.js' %}"></script>
+<h4>Students on campus</h4>
+{% for s in students_campus %}
+
+{% include "hl/blocks/students_on_campus.html" %}
+  
+{% endfor %}
+
+
+{% endblock %}

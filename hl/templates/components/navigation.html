@@ -1,0 +1,36 @@
+{% load static %}
+<script src="{% static 'javascript/light_colour.js' %}"></script>
+
+
+<div class="col-2 navje">
+
+    <div class="logo-div">
+        <img src="{% static 'images/logo/hylight_wit.svg' %}" class="logo">
+    </div>
+
+    <div class="nav_links">
+
+        <div class="nav_link">
+            <a href="{% url 'index' %}" class="nav_linkje">
+                    <img src="{% static 'images/icons/dashboard.svg' %}" class="icon">
+                    Dashboard
+            </a>
+        </div>
+
+        <div class="nav_link">
+            <a href="{%url 'forum' %}" class="nav_linkje">
+                <img src="{% static 'images/icons/forum.svg' %}" class="icon">
+                Forum
+            </a>
+        </div>
+
+        <div class="nav_link">
+            <a href="{% url 'profile' %}" class="nav_linkje">
+                <img src="{% static 'images/icons/settings.svg' %}" class="icon">
+                Settings
+            </a>
+        </div>
+
+    </div>
+
+  </div>

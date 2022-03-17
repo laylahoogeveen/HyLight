@@ -5,7 +5,7 @@ from django.template.loader import get_template
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import RegisterForm1, RegisterForm2, RegisterForm3
+from .forms import RegisterForm1, RegisterForm2, RegisterForm3, ProfileForm
 from .helpers import study_to_skills, remove_all_skills
 from formtools.wizard.views import SessionWizardView
 
@@ -157,10 +157,19 @@ def profile(request):
 
     user = User.objects.filter(username=request.user).first()
 
+    if request.method == 'POST' or None:
+        form = ProfileForm(request.POST or None)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = user
+            profile = form.save()
+
+    form = ProfileForm(request.POST)
     context = {
                 "firstName": user.first_name,
                 "lastName": user.last_name,
                 "email": user.email,
+                "form": form,
                 }
 
     return render(request, "hl/account/profile.html", context)

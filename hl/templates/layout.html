@@ -30,89 +30,27 @@
 
     <div class="row all">
 
-          <div class="col-2 navje">
-
-            <div class="logo-div">
-                <img src="{% static 'images/logo/hylight_wit.svg' %}" class="logo">
-            </div>
-
-            <div class="nav_links">
-
-                <div class="nav_link">
-                    <a href="{% url 'index' %}" class="nav_linkje">
-                            <img src="{% static 'images/icons/dashboard.svg' %}" class="icon">
-                            Dashboard
-                    </a>
-                </div>
-
-                <div class="nav_link">
-                    <a href="#" class="nav_linkje">
-                        <img src="{% static 'images/icons/forum.svg' %}" class="icon">
-                        Forum
-                    </a>
-                </div>
-
-                <div class="nav_link">
-                    <a href="{% url 'profile' %}" class="nav_linkje">
-                        <img src="{% static 'images/icons/settings.svg' %}" class="icon">
-                        Settings
-                    </a>
-                </div>
-
-            </div>
-
-          </div>
-
+        {% include "components/navigation.html" %}
 
           <div class="col body" style="margin:0;">
 
-            <div class="row search-profile">
-
-                <div class="col-6 left searchje">
-                    <!-- <div class="search"> -->
-                        <img class="search_icon" src="{% static 'images/icons/kleur/search.svg' %}" >
-                        <input class="search_form" type="text" placeholder="Search for subject, tags or study programme ">
-                    <!-- </div> -->
-                    
-                </div>
-                <div class="col-6 right profile">
-                    <div class="top_bar_container">
-
-                        <div class="profile_buttons">
-                            <img class="round_icon" src="{% static 'images/icons/kleur/light.svg' %}" >
-                            <img class="round_icon" src="{% static 'images/icons/kleur/chat.svg' %}" >
-                            <img class="round_icon" src="{% static 'images/icons/kleur/notification.svg' %}" >
-                            <a href="{% url 'profile' %}" class="a_btn">
-                            <img class="ava_icon" src="{% static 'images/icons/kleur/ava.svg' %}" >
-                        </a>
-                        </div>
-                        <div class="user_info">
-                            <div class="user_titles">
-                                {% if request.user.is_authenticated %} 
-                                <h5>{{ request.user.first_name }}</h5>
-                                <div class="user_subtitle">
-                                    {% if request.user.profile.title %}
-                                    {{ request.user.profile.title }}
-                                </div>
-                                {% endif %}
-                            </div>
-                        </div>
-                        
-                        <a href="{% url 'logout' %}" class="a_btn">
-                            <button type="submit" class="btn btn-sm btn-outline-primary float-right">Sign out</button>
-                        </a>
-                            {% endif %}
-                        {% block profile %}
-
-                        {% endblock %}
-                    </div>
-                </div>
-
-            </div>
+            {% include "components/top_bar.html" %}
        
             <div class="row full">
                 <div class="greet">
-                    <h3>Good morning, {{ request.user.first_name }}!</h3>
+                    <h3>Good 
+                        {% now "H" as current_time  %}
+
+                        {% if current_time|add:"0" >= 12 and current_time|add:"0" < 18 %}
+                            afternoon,
+                        {% elif current_time|add:"0" >= 18 and current_time|add:"0" < 24 %}
+                            evening,
+                        {% elif current_time|add:"0" >= 6 and current_time|add:"0" < 12%}
+                            morning,
+                        {% else %}
+                            night,
+                        {% endif %}
+                         {{ request.user.first_name }}!</h3>
                 </div>
 
                 <div class="col-8 body-1" style="margin:0">
@@ -121,7 +59,7 @@
 
                         <div class="col left side full">
                             <div class="block">
-                                {% block map %}
+                                {% block ask %}
                                 
                                 {% endblock %}
                             </div>
@@ -133,7 +71,7 @@
 
                         <div class="col left side">
                             <div class="block">
-                                {% block ask %}
+                                {% block map %}
         
                                 {% endblock %}
                             </div>

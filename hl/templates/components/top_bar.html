@@ -1,0 +1,51 @@
+{% load static %}
+
+
+<div class="row search-profile">
+
+    <div class="col-5 left searchje">
+        <!-- <div class="search"> -->
+            <img class="search_icon" src="{% static 'images/icons/kleur/search.svg' %}" >
+            <input class="search_form" type="text" placeholder="Search for subject, tags or study programme ">
+        <!-- </div> -->
+        
+    </div>
+    <!-- <div class="col ">{{availability_form}}</div> -->
+    <div class="col-6 right profile">
+        <div class="top_bar_container">
+
+            <div class="profile_buttons">
+                <img class="round_icon" src="{% static 'images/icons/kleur/light.svg' %}" >
+                <img class="round_icon" src="{% static 'images/icons/kleur/chat.svg' %}" >
+                <img class="round_icon" src="{% static 'images/icons/kleur/notification.svg' %}" >
+                <a href="{% url 'profile' %}" class="a_btn">
+                {%if not user.profile.avatar %}
+                <img class="ava_icon" src="{% static 'images/icons/kleur/ava.svg' %}" >
+                {% else %}
+                <img class="ava_icon" src="{{request.user.profile.avatar}}" >
+                {% endif %}
+            </a>
+            </div>
+            <div class="user_info">
+                <div class="user_titles">
+                    {% if request.user.is_authenticated %} 
+                    <h5>{{ request.user.first_name }}</h5>
+                    <div class="user_subtitle">
+                        {% if request.user.profile.title %}
+                        {{ request.user.profile.title }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <a href="{% url 'logout' %}" class="a_btn">
+                <button type="submit" class="btn btn-sm btn-outline-primary float-right">Sign out</button>
+            </a>
+                {% endif %}
+            {% block profile %}
+
+            {% endblock %}
+        </div>
+    </div>
+
+</div>

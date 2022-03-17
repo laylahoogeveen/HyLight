@@ -1,0 +1,39 @@
+{% load static %}
+<div class="questions_container">
+    <script src="{% static 'javascript/status.js' %}"></script>
+    {%for u in users %}
+        <div>
+            <div></div>
+        <div class="questions_ava">
+
+            {%if not u.profile.avatar %}
+                {% if u.profile.available == False %}
+                    <img class="question_ava unavailable_border" src="{% static 'images/icons/kleur/ava.svg' %}" >
+                    <!-- {{q.user}} -->
+                {% else %}
+                <img class="question_ava available_border" src="{% static 'images/icons/kleur/ava.svg' %}" >
+            {%endif %}
+            {% else %}
+            {% if u.profile.available == False %}
+                <img class="question_ava unavailable_border" src="{{u.profile.avatar}}" >
+                {% else %}
+                <img class="question_ava available_border" src="{{u.profile.avatar}}" >
+
+                {%endif %}
+            {% endif %}
+            
+        </div>
+        <div class="right_side">
+            <h6 class="question_title">{{u.first_name}} {{u.last_name}}</h6>
+            <div class="question_description">
+                {%for c in chats %}
+                    {% if forloop.counter0 == u.pk %}
+                        {{ c }}
+                    {% endif %}
+                {% endfor %}
+              </div>
+        </div>
+        
+    <hr>
+    {% endfor %}
+</div>

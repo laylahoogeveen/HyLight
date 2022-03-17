@@ -1,0 +1,121 @@
+// For answering questions
+$answer_size_top: 15%;
+$answer_size: $answer_size_top * 2;
+
+.answer_popup {
+    padding: 1em;
+    z-index: 5;
+    opacity: 1;
+    position:fixed;
+    overflow-y:scroll;
+    left: $answer_size;
+    right: $answer_size;
+    top: $answer_size_top;
+    bottom: $answer_size_top;
+    box-shadow: 0.2em 0.2em 0.9em rgb(0, 0, 0, 0.2);
+    background-color: #FFFFFF;
+    border-radius: 1.2em;
+    display: none;
+    animation: popUp 0.2s;
+    // display: grid;
+
+    &::-webkit-scrollbar {
+        width: 15px;
+        background-color: rgb(210, 235, 240, 0.2); /* or add it to the track */
+        border-radius:2em;
+        height: 90%;
+      }
+    &::-webkit-scrollbar-thumb {
+
+        // background-color: $accent; 
+        background-color: $bg;
+        border-radius:2em;
+        margin-top: 20px;
+      }
+      &::-webkit-scrollbar-track {
+        margin: 6px;
+        right: 20px;
+      }
+}
+
+.description_popup {
+    display: inline-block;
+    border-radius: 0.4em;
+    width: 80%;
+    margin: 1em;
+    padding: 0.5em;
+    background-color: rgb(210, 235, 240, 0.5);
+    &.main_question {
+        background-color: $bg;
+    }
+}
+
+.user_popup {
+    display: grid;
+    position: relative;
+    width: 10%;
+    vertical-align: middle;
+    align-self: center;
+}
+
+.questiontje {
+    align-content:center;
+    display: inline-flex;
+}
+
+.close {
+    max-width: 1.5em;
+    max-height: 1.5em;
+    display: inline-flex;
+    cursor: pointer;
+    position: fixed;
+    z-index: 6;
+}
+
+
+
+.close_popup {
+    width: 100%;
+    padding-right: 2em;
+    text-align:end;
+    align-items: flex-end;
+}
+#panel {
+    /* Should take whole screen */
+    position: fixed;
+    top: 0; bottom: 0; left: 0; right: 0;
+    
+    /* Semi-transparent black */
+    background: #FFFFFF;
+    
+    /* Initial settings */
+    z-index: 1;
+    display: none;
+    opacity: 0.7;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 0.15s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0.7;
+	}
+}
+
+@keyframes popUp {
+	0% {
+		transform: scale(0.1);
+	}
+	100% {
+		transform: scale(1)
+	}
+}
+
+.change_question_popup {
+    @extend .answer_popup;
+}

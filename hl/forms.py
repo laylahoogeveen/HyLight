@@ -96,6 +96,22 @@ class RegisterForm3(forms.ModelForm):
         widgets = {}
         widgets['skills'] = forms.CheckboxSelectMultiple()
 
+class ProfileForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        '''Dynamic placeholders for all form fields'''
+        super(ProfileForm, self).__init__(*args, **kwargs)
+
+        for f in self.fields:
+            self.fields[f].required = False
+            self.fields[f].help_text = False
+            # self.fields[f].widget.attrs['class'] = 'form-control'
+
+    class Meta:
+        model = Profile
+        fields = ['available', 'location']
+        widgets = {}
+        # widgets['available'] = forms.RadioSelect()
+
 class QuestionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         '''Dynamic placeholders for all form fields'''
@@ -106,11 +122,12 @@ class QuestionForm(forms.ModelForm):
             self.fields[f].help_text = False
             self.fields['skills'].widget.attrs['class'] = 'li ul question'
             self.fields['study'].widget.attrs['class'] = 'li ul question'
+            self.fields['online'].widget.attrs['class'] = 'switch-button-checkbox'
 
     class Meta:
         model = Question
   
-        fields = [ 'title', 'study', 'description', 'skills']
+        fields = [ 'title', 'study', 'description', 'skills', 'online']
         widgets= {}
         widgets['description'] = forms.Textarea(attrs={
                                         'required': 'True',
@@ -121,5 +138,82 @@ class QuestionForm(forms.ModelForm):
                                         'required': 'True',
                                         'placeholder': 'Title of your question'})
 
+        
         widgets['skills'] = forms.SelectMultiple()
         widgets['study'] = forms.SelectMultiple()
+
+
+class CommentForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        '''Dynamic placeholders for all form fields'''
+        super(CommentForm, self).__init__(*args, **kwargs)
+
+        for f in self.fields:
+            self.fields[f].required = False
+            self.fields[f].help_text = False
+
+    class Meta:
+        model = Comment
+  
+        fields = ('description', )
+        widgets= {}
+        widgets['description'] = forms.Textarea(attrs={
+                                        'required': 'True',
+                                         'class': 'form-control comment_area',
+                                        'placeholder': 'Your comment on this'\
+                                                        ' question. This could'\
+                                                        ' be an answer/solution or a clarifying question'})
+
+class ChangeQuestionForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        '''Dynamic placeholders for all form fields'''
+        super(ChangeQuestionForm, self).__init__(*args, **kwargs)
+
+        for f in self.fields:
+            self.fields[f].required = False
+            self.fields[f].help_text = False
+            self.fields['status'].widget.attrs['class'] = 'remove'
+            self.fields['online'].widget.attrs['class'] = 'switch-button-checkbox'
+            # self.fields['title'].initial = self.get_formtitle
+            # form = form
+
+    # def get_form(self):
+    #     form = self.form_class(instance=self.object)
+    #     return form
+
+    class Meta:
+        model = Question
+  
+        fields = ['status', 'title', 'description', 'online',]
+        widgets= {}
+        widgets['description'] = forms.Textarea(attrs={
+                                        'required': 'True',
+                                         'class': 'form-control question_area question default_value',
+                                        'placeholder': 'Description of your question. Try to include relevant details.'})
+        widgets['title'] = forms.TextInput(attrs={
+                                        'class': 'form-control-sm form-control question default_value',
+                                        'required': 'True',
+                                        'placeholder': 'Title of your question'})
+
+        widgets['status'] = forms.RadioSelect()
+
+
+class ChangeAvailability(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        '''Dynamic placeholders for all form fields'''
+        super(ChangeAvailability, self).__init__(*args, **kwargs)
+
+        for f in self.fields:
+            self.fields[f].required = False
+            self.fields[f].help_text = False
+            # self.fields['status'].widget.attrs['class'] = 'remove'
+            # self.fields['online'].widget.attrs['class'] = 'switch-button-checkbox'
+            # self.fields['title'].initial = self.get_formtitle
+
+    class Meta:
+        model = Profile
+  
+        fields = ['available']
+        
+
+

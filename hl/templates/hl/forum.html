@@ -1,0 +1,21 @@
+
+{% extends "layout_forum.html" %}
+{% load static %}
+
+{% block title %}
+    HyLight: forum
+{% endblock %}
+
+
+{% block middle %}
+
+
+    
+    <h4>Recent questions {{addition}}</h4>
+    {% if addition is None %}
+    <a href="{% url 'questions_for_you' %}" >Show relevant questions for you</a>
+    {% endif %}
+            
+    {% include "hl/blocks/questions_for_you.html" %}
+        
+{% endblock %}

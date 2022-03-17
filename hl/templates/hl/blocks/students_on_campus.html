@@ -1,0 +1,44 @@
+{% load static %}
+
+<div class="offline_student_container">
+    <div class="student_offline">
+        <div class="nearby_ava">
+
+            {%if not s.profile.avatar %}
+                {% if s.profile.available == False %}
+                    <img class="question_ava unavailable_border" src="{% static 'images/icons/kleur/ava.svg' %}" >
+                    <!-- {{q.user}} -->
+                {% else %}
+                <img class="question_ava available_border" src="{% static 'images/icons/kleur/ava.svg' %}" >
+            {%endif %}
+            {% else %}
+            {% if s.profile.available == False %}
+                <img class="question_ava unavailable_border" src="{{s.profile.avatar}}" >
+                {% else %}
+                <img class="question_ava available_border" src="{{s.profile.avatar}}" >
+
+                {%endif %}
+            {% endif %}
+            
+        </div>
+        
+        <div class="student_descr">
+            <span class="nearby_name">{{s.first_name}}</span>
+            {{s.profile.title}}<br>
+            <div class="nearby_studies">
+            {% for study in s.profile.get_current_studies %}
+            {% if forloop.counter0 > 0 %}
+            & {{study}}
+            {% else %}
+            {{ study }}
+            {% endif %}
+            
+            {% endfor %}
+        </div>
+        <div class="nearby_studies room">
+            Available @{{s.profile.location}}
+        </div>
+        </div>
+        
+    </div>
+</div>
