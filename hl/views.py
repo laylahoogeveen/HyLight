@@ -6,7 +6,7 @@ from django.template.loader import get_template
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .forms import QuestionForm, CommentForm, ChangeQuestionForm
-from .helpers import get_user_questions, dummy_text, get_unused, make_question_notification, make_comment_notification
+from .helpers import get_user_questions, dummy_text, get_unused, make_question_notification, make_comment_notification, get_students
 from .models import Profile, Question, Notification, Skill
 import random
 
@@ -58,7 +58,7 @@ def index(request):
 
             
     students_campus = User.objects.filter(profile__available=True).exclude(profile__location=None)
-    users = User.objects.order_by('-date_joined')
+    users = get_students()
     form = QuestionForm(request.POST)
     comment_form = CommentForm(request.POST)
     context = {

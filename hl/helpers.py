@@ -3,6 +3,15 @@ from django.db.models import Q
 from .models import Question, Notification
 import datetime
 
+def get_students():
+    '''Make a list of students for mock up purposes'''
+    student_list = []
+    students = ['taylor13', 'victor84', 'horace65', 'toto', 'annechien', 'humberto']
+    for u in User.objects.all():
+        if u.username in students:
+            student_list.append(u)
+
+    return student_list
 
 def study_to_skills(user):
     '''Add skills belonging to user's study programmes to their list of skills'''
@@ -43,11 +52,11 @@ def dummy_text():
     let = ["I'll let you know ASAP"] * 5
     thx = ["Thank you so much for helping me out with all this."] * 5
 
-    chat[40] = meet
-    chat[38] = idea
-    chat[35] = lmk
-    chat[36] = lol
-    chat[39] = test
+    chat[9] = meet
+    chat[4] = idea
+    chat[3] = lmk
+    chat[10] = lol
+    chat[11] = test
     chats = [*chat, *hey, *hey2, *tough, *wtf, *let, *thx]
     return chats
 
