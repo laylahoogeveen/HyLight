@@ -10,12 +10,21 @@
 {% block middle %}
 
 
+
+
     
     <h4>Recent questions {{addition}}</h4>
     {% if addition is None %}
+    
     <a class="animated" href="{% url 'questions_for_you' %}" >Show relevant questions for you</a>
     {% endif %}
-    
+    <p class="text-center">
+    <script src="{% static 'javascript/filter_questions.js' %}"></script>
+
+    <button type="submit" class="btn btn-sm btn-outline-primary hide_answered" onClick="hideAnswered()" id="hide_answered">Hide answered questions</button>
+    <button type="submit" class="btn btn-sm btn-outline-primary hide_in_progress" onClick="hideInProgress()" id="hide_in_progress">Hide questions in progress</button>
+
+</p>
     
     {% include "hl/blocks/questions_for_you.html" %}
         

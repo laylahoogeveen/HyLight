@@ -23,14 +23,11 @@
         <div class="questions_ava">
 
             <div class="d-inline-flex position-relative p-2">
-                <!-- <div class="position-absolute"> -->
                     <img class="light_icon small" src="{% static 'images/icons/light_white.svg' %}" >
                     <span class="hidden_text light_colour ">{{q.colour}}</span>
-                <!-- </div> -->
             {%if not q.user.profile.avatar %}
                 {% if q.user.profile.available == False %}
                     <img class="question_ava unavailable_border" src="{% static 'images/icons/kleur/ava.svg' %}" >
-                    <!-- {{q.user}} -->
                 {% else %}
                 <img class="question_ava available_border" src="{% static 'images/icons/kleur/ava.svg' %}" >
             {%endif %}
@@ -44,11 +41,11 @@
             {% endif %}
             <img class="light_icon small" src="{% static 'images/icons/light_white.svg' %}" >
             <span class="hidden_text light_colour ">{{q.colour}}</span>
+            </div>
         </div>
-        </div>
+
         <div class="questions_preview">
 
-            
             <div class="questions_left">
                 <div class="question_title">
                     <h6 class="question_title">{{ q.title }}</h6>
@@ -68,7 +65,7 @@
                 <div class="question_status location">
                     {{q.get_location}}
                 </div>
-                <div class="question_status">
+                <div class="question_status real">
                     {{q.get_status_display}}
                 </div>
 
@@ -76,9 +73,6 @@
                 {{q.posted }}
                 </span>
             </div>
-            <!-- {%if q.get_status_display == "pending" %}
-                <script>showQuestion("{{q.user}}_descr")</script>
-            {%endif%} -->
         </div>
     </div>
     {% endfor %}

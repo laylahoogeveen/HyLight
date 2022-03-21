@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from .models import Question, Notification
 import datetime
+import random
+
 
 def get_students():
     '''Make a list of students for mock up purposes'''
@@ -30,9 +32,20 @@ def remove_all_skills(user):
 
 def get_user_questions(user):
     '''Get all questions that are relevant for user'''
+
     user_skills = user.profile.get_skills
     user_studies = user.profile.get_all_studies
     questions = Question.objects.filter((Q(skills__in=user_skills) | Q(study__in=user_studies))).exclude(user=user).order_by('-posted')
+    questions = list(dict.fromkeys(questions))
+    # questions = list(questions)
+    return questions
+
+def get_user_questions_unanswered(user):
+    '''Get all questions that are relevant for user'''
+    user_skills = user.profile.get_skills
+    user_studies = user.profile.get_all_studies
+    questions = Question.objects.filter((Q(skills__in=user_skills) | Q(study__in=user_studies))).exclude(user=user).order_by('-posted')
+    questions = questions.exclude(status=2)
     questions = list(dict.fromkeys(questions))
     # questions = list(questions)
     return questions
@@ -62,6 +75,7 @@ def dummy_text():
 
 def get_unused():
     '''Get colours that are currently not being used'''
+
     options = Question.LIGHT_CHOICES
     new_options = []
     used_colours = Question.objects.values_list('colour', flat=True).exclude(status=2)
@@ -70,14 +84,15 @@ def get_unused():
         if o[0] not in used_colours:
             new_options.append(o)
 
-    # if there are none left
+    # if there are none left, pick random colour
     if len(new_options) == 0:
-        return options
+        return random.choice(options)
         
-    return new_options
+    return random.choice(new_options)
 
 
 def make_question_notification(question):
+    '''Create a notification for users subscribed tags of question'''
 
     users = []
     for skill in question.get_skills:
@@ -103,5 +118,8 @@ def make_question_notification(question):
 
 
 def make_comment_notification(comment, question):
+    '''Create a notification for user that originally asked the question,
+    when someone has commented on it.'''
+
     if comment.user != question.user:
         Notification.objects.create(user=question.user, question=question, comment=comment)
