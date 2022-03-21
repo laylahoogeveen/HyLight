@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-448vj38pi*_i)a5q(%&8lnwoj*-w0p@e&n*qg)uk4d7#m^9pfu
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['hylight.pythonanywhere.com', '127.0.0.1']
 
 LOGIN_URL = 'login'
 
