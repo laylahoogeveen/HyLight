@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import django_heroku
-import psycopg2
+# import psycopg2
 
 # DATABASE_URL = os.environ['DATABASE_URL']
 
