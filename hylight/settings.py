@@ -13,7 +13,11 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import django_heroku
+import psycopg2
 
+DATABASE_URL = os.environ['DATABASE_URL']
+
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +32,7 @@ SECRET_KEY = 'django-insecure-448vj38pi*_i)a5q(%&8lnwoj*-w0p@e&n*qg)uk4d7#m^9pfu
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['hylight.pythonanywhere.com', '127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 LOGIN_URL = 'login'
 
