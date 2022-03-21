@@ -53,13 +53,19 @@ class StudyProgramme(models.Model):
     level = models.PositiveSmallIntegerField(null=True)
     # subscribers = models.ManyToManyField(User, blank=True, related_name="study_subscribers")  
 
-
     def __str__(self):
         return self.name
 
     @property
     def get_skills(self):
         return self.skills.all()
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='notification_user')
+    question = models.ForeignKey('Question', null=True, on_delete=models.CASCADE, related_name='question_notification')
+    comment = models.ForeignKey('Comment', null=True, on_delete=models.CASCADE, related_name='comment_notification')
+    seen = models.BooleanField(blank=True, default=False)
+
 
 class Comment(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='comment_user')
@@ -108,7 +114,10 @@ class Question(models.Model):
     comments = models.ManyToManyField(Comment, blank=True, related_name="question_comment")
 
     def __str__(self):
-        return self.title
+        if self.title:
+            return self.title
+        else:
+            return ""
 
     
     @property
@@ -122,6 +131,13 @@ class Question(models.Model):
         else:
             return "Online"
 
+    @property
+    def get_skills(self):
+        return self.skills.all()
+
+    @property
+    def get_studies(self):
+        return self.study.all()
 
 #         ENDING = 0
 # DONE = 1

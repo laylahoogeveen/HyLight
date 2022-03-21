@@ -1,5 +1,8 @@
 
     {% extends "layout.html" %}
+    {% load static %}
+
+
 
     {% block title %}
         HyLight: dashboard
@@ -13,6 +16,7 @@
     
     
     {% block ask %}
+
     
         <h4>Profile info</h4>
         <table class="profile_info">
@@ -23,23 +27,28 @@
                 <td>
                     {{request.user.username}}
                 </td>
+                <td class="def text-nowrap">
+                    Short bio:
+                </td>
+                <td>
+                    {{request.user.profile.title}}
+                </td>
             </tr>
             <tr>
                 <td class="def">
-                    First name:
+                    Name:
                 </td>
                 <td>
-                    {{request.user.first_name}}
+                    {{request.user.first_name}} {{request.user.last_name}}
+                </td>
+                <td class="def" rowspan="2">
+                    Bio:
+                </td>
+                <td rowspan="2">
+                    {{request.user.profile.bio}}
                 </td>
             </tr>
-            <tr>
-                <td class="def">
-                    Last name:
-                </td>
-                <td>
-                    {{request.user.last_name}}
-                </td>
-            </tr>
+
             <tr>
                 <td class="def">
                     E-mail address:
@@ -48,42 +57,7 @@
                     {{request.user.email}}
                 </td>
             </tr>
-            {% if request.user.profile.location %}
-            <tr>                
-                <td class="def">
-                    Current location:
-                </td>
-                <td>
-                    {{request.user.profile.location}}
-                </td>
-            </tr>
-            {%endif %}
-            {% if request.user.profile.available %}
-            <tr>                
-                <td class="def">
-                    Currently available:
-                </td>
-                <td>  
-                    {% if request.user.profile.available == True %}
-                    Yes
-                    {% else %}
-                    No
-                    {% endif %}
-                </td>
-            </tr>
-            {%endif %}
-            <tr>
-                <td>
-                    <form method = 'post'>
-                        {% csrf_token %}
-                    
-                        {{ form }}
-
-                    <button class="btn btn-primary float-end in_btn" type = 'submit'>Send</button>
-                    <br>
-                    </form>
-                </td>
-            </tr>
+         
         </table>
 
 
@@ -93,28 +67,54 @@
     
     {% block map %}
         
-        <h4>About you</h4>
-        <table class="profile_info">
-            <tr>
-                <td class="def">
-                    Short description:
-                </td>
-                <td>
-                    {{request.user.profile.title}}
-                </td>
-            </tr>
-            <tr>
-                <td class="def">
-                    Bio:
-                </td>
-                <td>
-                    {{request.user.profile.bio}}
-                </td>
-            </tr>
-            </table>
-        
-        <button type="button" class="btn btn-primary float-end send">Change bio</button>
+        <h4>Change availability and location</h4>
+        {% if 'availability' in request.path %}
+        <script src="{% static 'javascript/focus_div.js' %}"></script>
+        <script>
+            $(document).ready(function(){
+                focusAvailability("#availability_info");
+            });
+        </script>
 
+        {% endif %}
+      
+
+        <table class="profile_info">
+            
+            <form method = 'post'>
+                {% csrf_token %}
+            
+                {% for field in form %}
+                    <tr>
+                        <td class="def">{{field.label}}</td>
+                        
+                        <td width="55%">
+                        {% if field.label == 'Location'%}
+                            {{ field }}
+                            <div class="hidden_text">{{request.user.profile.location}}</div>
+                        {% else %}
+
+                        
+                            {% if request.user.profile.available == True %}
+                                <span class="selectme">
+                                    <input type="checkbox" id="availability_check" name="available">
+                                </span>
+                            {% else %}
+                            <input type="checkbox" id="availability_check" name="available">
+                            {% endif %}
+                        {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            <tr><td></td>
+                <td><br>
+                    <button class="btn btn-primary float-end send align-bottom" type = 'submit'>Send</button>
+                </td>
+            </tr>
+            <br>
+            </form>
+            
+        </table>
         
     
     {% endblock %}

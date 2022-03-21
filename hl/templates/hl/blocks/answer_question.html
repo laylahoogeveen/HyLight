@@ -1,0 +1,112 @@
+{% load static %}
+
+<div class="toggle_center">
+    <script src="{% static 'javascript/short_comment.js' %}"></script>
+
+    <div class="toggle_container">
+        <button class="question_status answer">Answer question</button>
+    </div>
+    <div class="answer_popup">
+
+        <div class="close_popup">
+            <img class="close" src="{% static 'images/icons/kleur/close.svg' %}" >
+        </div>
+        <div class="questiontje">
+            <div class="user_popup">
+                <span class="nearby_name inline_block" >
+                    {%if not q.user.profile.avatar %}
+                        <img class="question_ava" src="{% static 'images/icons/kleur/ava.svg' %}" ><br>
+                        {% else %}
+                <img class="question_ava" src="{{q.user.profile.avatar}}" ><br>
+                    {{q.user.username}}
+                    {% endif %}
+                </span>
+            </div>
+            
+            <div class="description_popup main_question">
+                <span class="nearby_name">{{q.title}}</span>
+
+                {{q.description}}
+                
+            </div><p>
+
+        </div>
+        <div class=" d-flex w-80 justify-content-center tags_container">
+            <span class="light_text">Tags:</span>
+            {% for skill in q.skills.all %}
+            <li class="li small">{{skill}}</li>
+            {% endfor %}
+            {% for study in q.study.all %}
+            <li class="li small">{{study}}</li>
+            {% endfor %}
+            </div>
+        {% for c in q.get_all_comments %}
+            <div class="questiontje">
+                
+                {%if forloop.counter|divisibleby:2 == False %}
+                <div class="description_popup">
+                    {{c.description}}
+                    
+                </div>
+                {%endif%}
+                <div class="user_popup">
+                    <span class="nearby_name inline_block">
+                        {%if not c.user.profile.avatar %}
+                            <img class="question_ava" src="{% static 'images/icons/kleur/ava.svg' %}" >
+                            <!-- {{q.user}} -->
+                        {% else %}
+                    <img class="question_ava" src="{{c.user.profile.avatar}}" ><br>
+                        {%endif%}
+                        {{c.user}}
+                    </span>
+                </div>
+                {%if forloop.counter|divisibleby:2 == True %}
+                <div class="description_popup">
+                    {{c.description}}
+                    
+                </div>
+                {%endif%}
+            
+            </div>
+        {% endfor %}
+        {% if q.online != False %}
+        <form method = 'post'>
+            {% csrf_token %}
+        <div class="omw d-none"> 
+                <!-- d-none  -->
+            {{comment_form.description}}
+            <div class="hidden_text">
+            {% if q.online == False %}
+            On my way{%if q.user.profile.location != None or q.user.profile.location != "" %} to {{q.user.profile.location}} {% endif %}to help you!
+            {% endif %}
+        </div>
+
+        </div>
+        <input type="hidden" id="questionID" name="questionID" value={{q.pk}}>
+        
+        <button class="btn btn-primary float-center" type = 'submit'>
+            On my way 
+            {%if q.user.profile.location %}
+                to {{q.user.profile.location}}
+            {% endif %}
+            to help you!
+        </button>
+        {% else %}
+        {% endif %}
+        <br>
+
+        </form>
+        <span class="nearby_name">Your comment:</span>
+        <form method = 'post'>
+            {% csrf_token %}
+        
+        {% for field in comment_form %}
+            {{field}}
+        {% endfor %}
+        <input type="hidden" id="questionID" name="questionID" value={{q.pk}}>
+        <button class="btn btn-primary float-end in_btn" type = 'submit'>Send</button>
+        <br>
+        </form>
+    </div>
+</div>
+

@@ -1,0 +1,97 @@
+
+{% extends "layout_forum.html" %}
+{% load static %}
+
+{% block title %}
+    HyLight: forum
+{% endblock %}
+
+
+{% block middle %}
+
+
+    
+            
+    <div class="questions_container">
+        <script src="{% static 'javascript/status.js' %}"></script>
+        <div class="questions_sm">            
+            
+            <div class="user_info_hover" id="{{user.username}}">
+                
+                
+                <h6>{% if q.user.profile.available == False %}
+                    {%endif %}
+                    <b>{{q.user.first_name}} {{q.user.last_name}}</b> <span class="marked">({{q.user.username}})</span>
+                </h6>
+                {{q.user.profile.title}}<br>
+                {{q.user.profile.get_availability}}
+                {%if q.user.profile.get_availability == "Available"%}
+                    {% if q.user.profile.location %}
+                    in <span class="marked"> {{q.user.profile.location}}</span>
+                    {% endif%}
+                {% endif %}
+            </div>
+            <div class="questions_ava">
+    
+                <div class="d-inline-flex position-relative p-2">
+                    <!-- <div class="position-absolute"> -->
+                        <img class="light_icon small" src="{% static 'images/icons/light_white.svg' %}" >
+                        <span class="hidden_text light_colour ">{{q.colour}}</span>
+                    <!-- </div> -->
+                {%if not q.user.profile.avatar %}
+                    {% if q.user.profile.available == False %}
+                        <img class="question_ava unavailable_border" src="{% static 'images/icons/kleur/ava.svg' %}" >
+                        <!-- {{q.user}} -->
+                    {% else %}
+                    <img class="question_ava available_border" src="{% static 'images/icons/kleur/ava.svg' %}" >
+                {%endif %}
+                {% else %}
+                {% if q.user.profile.available == False %}
+                    <img class="question_ava unavailable_border" src="{{q.user.profile.avatar}}" >
+                    {% else %}
+                    <img class="question_ava available_border" src="{{q.user.profile.avatar}}" >
+    
+                    {%endif %}
+                {% endif %}
+                <img class="light_icon small" src="{% static 'images/icons/light_white.svg' %}" >
+                <span class="hidden_text light_colour ">{{q.colour}}</span>
+            </div>
+            </div>
+            <div class="questions_preview">
+    
+                
+                <div class="questions_left">
+                    <div class="question_title">
+                        <h6 class="question_title">{{ q.title }}</h6>
+                    </div>
+                    <div class="question_description" id="{{q.user}}_descr">
+                        {{ q.description }}
+                        
+                    </div>
+                    {% if q.get_status_display == 'pending' %}
+                    {% include "hl/blocks/answer_question.html" %}
+                    {% else %}
+                    {% include "hl/blocks/show_question.html" %}
+                    {% endif %}
+    
+                </div>
+                <div class="questions_right">
+                    <div class="question_status location">
+                        {{q.get_location}}
+                    </div>
+                    <div class="question_status">
+                        {{q.get_status_display}}
+                    </div>
+    
+                    <span class="question_date">
+                    {{q.posted }}
+                    </span>
+                </div>
+                <!-- {%if q.get_status_display == "pending" %}
+                    <script>showQuestion("{{q.user}}_descr")</script>
+                {%endif%} -->
+            </div>
+        </div>
+    </div>
+        
+{% endblock %}

@@ -41,10 +41,13 @@
             <div class="row full">
             
             <div class="col"></div>
-            {% if request.user.question_user.all and questions_for_you is None %}
+            {% if request.user.question_user.all and questions_for_you is None and 1column == None %}
                 <div class="col-5">
+            {% elif students_campus != None %}
+            <div class="col-5">
+
             {% else %}
-                <div class="col-8">
+                <div class="col-6">
                 
             {% endif %}
                 <div class="block">
@@ -56,9 +59,10 @@
                 {% endblock %}
                 </div>
             </div>
-            {% if request.user.question_user.all and questions_for_you is None %}
+            {% if request.user.question_user.all and questions_for_you is None and 1column == None%}
             <div class="col-4">
                 <div class="block">
+                    <h4>Questions by you</h4>
                     {% include "hl/blocks/questions_by_you.html" %}
 
                     

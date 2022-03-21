@@ -6,6 +6,26 @@ body {
   font-family: "Karla", "Arial Nova", sans-serif;
   overflow-x: hidden;
   background: linear-gradient(to right, $nav 0% 16.65%, $bg 16.65% 100%);
+  &::-webkit-scrollbar {
+    width: 15px;
+
+    opacity: 0;
+    background-color: rgba(255,255,255, 0);/* or add it to the track */
+    height: 90%;
+  }
+&::-webkit-scrollbar-thumb {
+
+    background-color: $bg;
+    border: rgba(255, 255, 255, 0.8) 2px solid;
+    // border-radius:2em;
+  }
+  &::-webkit-scrollbar-track {
+
+    margin-top: $search-height;
+    background-color: none;
+    opacity: 0;
+    background-color: rgba(255,255,255, 0);
+  }
 }
 
 .logo {
@@ -22,47 +42,60 @@ body {
   margin: 1em 1.8em 1em 1.8em;
 }
 
+.auto_height {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
 .search_icon {
-  max-height: 2.5em;
+  @extend .auto_height;
   align-self: center;
   vertical-align: middle;
+  align-self: center;
+  display: inline-flex;
 }
 
 .round_icon {
-  @extend .search_icon;
-  margin-left: 1em;
+  @extend .auto_height;
+  margin: 0.2em;
   box-shadow: 0.15em 0.15em 0.4em $black_shadow;
-  border-radius: 100%;
-}
-
-.ava_icon {
-  margin: -1em 0 -1em 1em;
-  box-shadow: 0.15em 0.15em 0.4em $black_shadow;
-  vertical-align: middle;
-  border-radius: 100%;
-  // max-height: 4em;
-  height: 4em;
-  width: 4em;
+  border-radius: 100% 100% 100% 100%;
+  align-self: center;
+  display: inline-flex;
   object-fit: cover;
+  object-position: center;
+  overflow: hidden;
+      cursor: pointer;
+
 }
 
-
-a {
-  text-decoration: none;
-  box-shadow: inset 0 0 0 0 $accent;
-  color: $accent;
-  margin: 0 -.25rem;
-  padding: 0 .25rem;
-  transition: color .2s ease-in-out, box-shadow .2s ease-in-out;
-  &:hover {
-    box-shadow: inset 300px 0 0 0 $accent;
-    color: $bg;
-    &.a_btn {
-      box-shadow: none !important;
+a { 
+  &.animated {
+    text-decoration: none;
+    box-shadow: inset 0 0 0 0 $accent;
+    color: $accent;
+    margin: 0 -.25rem;
+    padding: 0 .25rem;
+    transition: color .2s ease-in-out, box-shadow .2s ease-in-out;
+    &:hover {
+      box-shadow: inset 300px 0 0 0 $accent;
+      color: $bg;
+      &.a_btn {
+        box-shadow: none !important;
+      }
+    }
+  }
+  &.available_link {
+    color: $nav;
+    box-shadow: inset 0 0 0 0 $nav;
+    &:hover {
+      box-shadow: inset 300px 0 0 0 $nav;
+      color: #FFFFFF;
     }
   }
 
   &.nav_linkje {
+    @extend .animated;
     color: #FFFFFF;
     margin: 0 !important;
     padding: 0 !important;
@@ -114,6 +147,18 @@ h6 {
   }
 }
 
+.light_text {
+  color: $nav;
+  font-size: 0.9em;
+  margin: 0.7em;
+  top: 0;
+
+}
+
+.tags_container {
+  align-items:center;
+}
+
 li {
   &.li {
     border: rgba(194, 90, 33, 0.2) 2px solid;
@@ -123,6 +168,11 @@ li {
     color: $nav;
     float: left;
     margin: 0.2em;
+    &.small {
+      font-size: 0.8em;
+      margin: 0.1em;
+      height: fit-content;
+    }
   }
 }
 
@@ -185,7 +235,6 @@ ul {
 .expand_descr {
   overflow: visible;
   color: $accent;
-  
 }
 
 
@@ -251,7 +300,6 @@ ul {
   color: $nav;
 }
 
-
 .question_ava {
   box-shadow: 0.15em 0.15em 0.4em $black_shadow;
   border-radius: 100%;
@@ -259,22 +307,16 @@ ul {
   height: 4em;
   display: inline-flex;
   object-fit: cover;
-  
- 
 }
 
 .questions_sm {
   height: fit-content;
   margin-bottom: 0.5em;
-
 }
-
-// .questions_container {
-//   position: absolute;
-// }
 
 .user_info_hover {
   border-radius: 0.5em;
+  z-index: 4;
   color: $nav;
   box-shadow: 0.15em 0.15em 0.6em $black_shadow;
   padding: 0.2em;
@@ -298,6 +340,11 @@ ul {
 
 .marked {
   color: $accent;
+}
+
+.offline_students_container {
+  overflow: hidden;
+  // height: 100%;
 }
 
 .student_offline {
@@ -324,6 +371,13 @@ ul {
   font-weight: 500;
   color: $dark;
   display: block;
+  align-self: center;
+  align-content: center;
+  .inline_block {
+    display: grid;
+    vertical-align: middle;
+    
+  }
 }
 
 .nearby_studies {
@@ -342,12 +396,22 @@ ul {
 }
 
 .floatertje_right {
-  display: inline-block;
-  // align-self:baseline;
-  vertical-align: baseline;
-  width: 100%;
+  // display: inline-block;
   text-align:right;
+  // width: 100%;
+  // background-color: rgba(168, 42, 42, 0.2)
 
+}
+
+
+.border {
+  &-red {
+  border: red solid 2px;
+  }
+  &-green {
+    border: green solid 2px;
+    
+  }
 }
 
 .right_side {
@@ -366,12 +430,49 @@ ul {
     position: absolute;
     right: 0;
     top: 0;
+    &.small {
+      max-height: 2em;
+      max-width: 2em;
+      left: 0;
+    }
+    &.smaller {
+      height: 1.2em;
+      width: 1.2em;
+      position: static;
+      display: inline-block;
+      vertical-align:middle;
+      align-content: center;
+      align-self: center;
+    }
 }
 
-.light_icon {
-  &.small {
-    max-height: 2em;
-    max-width: 2em;
-    left: 0;
-  }
+.notification_container {
+  background-image: url(../images/icons/kleur/notification_num.svg);
+  vertical-align: middle;
+  position: absolute;
+  display: inline-flex;
+  align-content: center;
+  align-self: center;
+  text-align: center;
+  color: #FFFFFF;
+  padding: 0;
+  width: 1.2em;
+  height: 1.2em;
+  right: 0.5em;
+  top: 0.6em;
 }
+
+.small_font {
+  font-size: 0.7em;
+  text-align: center;
+  width: 100%;
+}
+
+.availability_circle {
+    height: 12px;
+    width: 12px;
+    display:inline-flex;
+    vertical-align: middle;
+}
+
+

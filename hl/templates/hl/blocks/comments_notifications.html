@@ -1,0 +1,76 @@
+{% load static %}
+
+
+<div class="questions_sm">            
+    <div class="user_info_hover" id="{{q.question.user.username}}">
+        
+        
+        <h6>
+            <b>{{c.comment.user.first_name}} {{c.comment.user.last_name}}</b> <span class="marked">({{c.comment.user.username}})</span>
+        </h6>
+        {{c.comment.user.profile.title}}<br>
+        {{c.comment.user.profile.get_availability}}
+        {%if c.comment.user.profile.get_availability == "Available"%}
+            {% if c.comment.user.profile.location %}
+            in <span class="marked"> {{c.comment.user.profile.location}}</span>
+            {% endif%}
+        {% endif %}
+    </div>
+    <div class="questions_ava">
+
+        <div class="d-inline-flex position-relative p-2">
+            <!-- <div class="position-absolute"> -->
+                <img class="light_icon small" src="{% static 'images/icons/light_white.svg' %}" >
+                <span class="hidden_text light_colour ">{{c.comment.question_comment.first.colour}}</span>
+            <!-- </div> -->
+        {%if not c.comment.user.profile.avatar %}
+            {% if c.comment.user.profile.available == False %}
+                <img class="question_ava unavailable_border" src="{% static 'images/icons/kleur/ava.svg' %}" >
+            {% else %}
+            <img class="question_ava available_border" src="{% static 'images/icons/kleur/ava.svg' %}" >
+        {%endif %}
+        {% else %}
+        {% if c.comment.user.profile.available == False %}
+            <img class="question_ava unavailable_border" src="{{c.comment.user.profile.avatar}}" >
+            {% else %}
+            <img class="question_ava available_border" src="{{c.comment.user.profile.avatar}}" >
+
+            {%endif %}
+        {% endif %}
+
+    </div>
+    </div>
+    <div class="questions_preview">
+
+        
+        <div class="questions_left">
+            <div class="question_title">
+                <h6 class="question_title">Question: {{ c.comment.question_comment.first }}</h6>
+            </div>
+            <div class="question_description" id="{{c.comment.user}}_descr">
+                {{ c.comment.description }}
+                
+            </div>
+            <div class="toggle_center">
+                    <div class="toggle_container">
+                        <button class="question_status answer notification_redirect">Show comment</button>
+                        <span class="hidden_text">/question/{{c.comment.question_comment.first.pk}}</span>
+                    </div>
+            </div>
+        
+        </div>
+        <div class="questions_right">
+            <div class="question_status location">
+                {{c.comment.question_comment.first.get_location}}
+            </div>
+            <div class="question_status">
+                {{c.comment.question_comment.first.get_status_display}}
+            </div>
+
+            <span class="question_date">
+            {{c.comment.question_comment.first.posted }}
+            </span>
+        </div>
+
+    </div>
+</div>

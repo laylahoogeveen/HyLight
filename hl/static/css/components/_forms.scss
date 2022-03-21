@@ -40,12 +40,16 @@ input[type=text] {
   }
 
   &.search_form {
-    vertical-align: middle;
+    display: inline-flex;
+    position: absolute;
+    white-space: nowrap;
+    overflow: hidden;
     padding: 1em;
     background: none;
     height: 100%;
     width: 90%;
     border: none;
+    text-overflow: ellipsis;
     &::placeholder {
       font-size: 1.1em;
       font-weight: 200;
@@ -179,6 +183,7 @@ table {
     &.question_table {
     width: 100%;
     max-height: 30vh;
+    
   }
 }
 

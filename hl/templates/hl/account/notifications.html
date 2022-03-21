@@ -1,0 +1,59 @@
+
+{% extends "layout_forum.html" %}
+{% load static %}
+
+{% block title %}
+    HyLight: notifications
+{% endblock %}
+
+
+{% block middle %}
+
+
+    
+    <h4>Notifications</h4>
+   
+    {% if num_results < 1 %}
+    <div class="text-center">
+        Nothing to be found.
+    </div>
+    {% else %}
+    {%if questions %}
+    <h6>New questions for you</h6>
+    {%endif%}
+
+    <div class="questions_container">
+        
+        <script src="{% static 'javascript/status.js' %}"></script>
+        {% for q in questions %}
+        {% include "hl/blocks/questions_notifications.html" %}
+        {% endfor %}
+
+
+
+        <!-- Comments -->
+        {% if comments %}
+        <h6>New comments on your questions</h6>
+        {%endif%}
+
+        {% for c in comments %}
+            {% include "hl/blocks/comments_notifications.html" %}
+        {% endfor %}
+        <!-- {% if num_past_results > 0 %}
+        <h6>Past notifications</h6>
+        {% endif %}
+
+        {% for q in past_questions %}
+            {% include "hl/blocks/questions_notifications.html" %}
+        {% endfor %}
+
+        {% for c in past_comments %}
+            {% include "hl/blocks/comments_notifications.html" %}
+        {% endfor %} -->
+
+
+    </div>
+    
+    {% endif %}
+        
+{% endblock %}

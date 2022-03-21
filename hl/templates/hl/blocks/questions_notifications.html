@@ -1,0 +1,76 @@
+{% load static %}
+
+
+<div class="questions_sm">            
+    <div class="user_info_hover" id="{{q.question.user.username}}">
+        
+        
+        <h6>
+            <b>{{q.question.user.first_name}} {{q.question.user.last_name}}</b> <span class="marked">({{q.question.user.username}})</span>
+        </h6>
+        {{q.question.user.profile.title}}<br>
+        {{q.question.user.profile.get_availability}}
+        {%if q.question.user.profile.get_availability == "Available"%}
+            {% if q.question.user.profile.location %}
+            in <span class="marked"> {{q.question.user.profile.location}}</span>
+            {% endif%}
+        {% endif %}
+    </div>
+    <div class="questions_ava">
+
+        <div class="d-inline-flex position-relative p-2">
+            <!-- <div class="position-absolute"> -->
+                <img class="light_icon small" src="{% static 'images/icons/light_white.svg' %}" >
+                <span class="hidden_text light_colour ">{{q.question.colour}}</span>
+            <!-- </div> -->
+        {%if not q.question.user.profile.avatar %}
+            {% if q.question.user.profile.available == False %}
+                <img class="question_ava unavailable_border" src="{% static 'images/icons/kleur/ava.svg' %}" >
+            {% else %}
+            <img class="question_ava available_border" src="{% static 'images/icons/kleur/ava.svg' %}" >
+        {%endif %}
+        {% else %}
+        {% if q.question.user.profile.available == False %}
+            <img class="question_ava unavailable_border" src="{{q.question.user.profile.avatar}}" >
+            {% else %}
+            <img class="question_ava available_border" src="{{q.question.user.profile.avatar}}" >
+
+            {%endif %}
+        {% endif %}
+
+    </div>
+    </div>
+    <div class="questions_preview">
+
+        
+        <div class="questions_left">
+            <div class="question_title">
+                <h6 class="question_title">{{ q.question.title }}</h6>
+            </div>
+            <div class="question_description" id="{{q.question.user}}_descr">
+                {{ q.question.description }}
+                
+            </div>
+            <div class="toggle_center">
+                    <div class="toggle_container">
+                        <button class="question_status answer notification_redirect">Show question</button>
+                        <span class="hidden_text">/question/{{q.question.pk}}</span>
+                    </div>
+            </div>
+        
+        </div>
+        <div class="questions_right">
+            <div class="question_status location">
+                {{q.question.get_location}}
+            </div>
+            <div class="question_status">
+                {{q.question.get_status_display}}
+            </div>
+
+            <span class="question_date">
+            {{q.question.posted }}
+            </span>
+        </div>
+
+    </div>
+</div>

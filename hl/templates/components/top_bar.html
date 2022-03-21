@@ -1,31 +1,41 @@
 {% load static %}
+<script src="{% static 'javascript/icon_links.js' %}"></script>
 
 
-<div class="row search-profile">
+<div class="row search-profile ">
 
-    <div class="col-5 left searchje">
+    <div class="col-6 left searchje">
         <!-- <div class="search"> -->
+            <div class="profile_buttons more-padding">
             <img class="search_icon" src="{% static 'images/icons/kleur/search.svg' %}" >
+        </div>
             <input class="search_form" type="text" placeholder="Search for subject, tags or study programme ">
         <!-- </div> -->
         
     </div>
-    <!-- <div class="col ">{{availability_form}}</div> -->
     <div class="col-6 right profile">
         <div class="top_bar_container">
 
             <div class="profile_buttons">
                 <img class="round_icon" src="{% static 'images/icons/kleur/light.svg' %}" >
-                <img class="round_icon" src="{% static 'images/icons/kleur/chat.svg' %}" >
-                <img class="round_icon" src="{% static 'images/icons/kleur/notification.svg' %}" >
-                <a href="{% url 'profile' %}" class="a_btn">
-                {%if not user.profile.avatar %}
-                <img class="ava_icon" src="{% static 'images/icons/kleur/ava.svg' %}" >
-                {% else %}
-                <img class="ava_icon" src="{{request.user.profile.avatar}}" >
+                <img class="round_icon" id="your_questions_link" src="{% static 'images/icons/kleur/your_questions.svg' %}" >
+                {% if request.user.notification_user.all|length > 0 %}
+                        <div class="notification_container">
+                            <span class="small_font">{{ request.user.notification_user.all|length }}</span>
+                        </div>
                 {% endif %}
-            </a>
+                        
+                <img class="round_icon" id="notifications_link" src="{% static 'images/icons/kleur/notification.svg' %}" >
+           
             </div>
+            <div class="profile_buttons no-padding">
+                    {%if not user.profile.avatar %}
+                    <img class="round_icon" id="profile_link" src="{% static 'images/icons/kleur/ava.svg' %}" >
+                    {% else %}
+                    <img class="round_icon" id="profile_link" src="{{request.user.profile.avatar}}" >
+                    {% endif %}
+            </div>
+            <!-- <div class="use -->
             <div class="user_info">
                 <div class="user_titles">
                     {% if request.user.is_authenticated %} 
@@ -34,13 +44,34 @@
                         {% if request.user.profile.title %}
                         {{ request.user.profile.title }}
                     </div>
+                        <span class="availability_top" >
+                            {% if request.user.profile.available == True %}
+                            <a href="{% url 'profile_availability' %}" class="animated available_link">
+                                <img class="availability_circle align-self-center" src="{% static 'images/icons/kleur/available.svg' %}" >
+                                
+                                Available
+                                {% if request.user.profile.location %}
+                                in {{ request.user.profile.location }}
+                                {% endif %}
+                            </a>
+                            {% else %}
+                            <a href="{% url 'profile_availability' %}" class="animated available_link">
+                                <img class="availability_circle align-self-center" src="{% static 'images/icons/kleur/unavailable.svg' %}" >
+
+                                Unavailable
+                            </a>
+                            {% endif %}
+                    </span>
                     {% endif %}
                 </div>
+        
             </div>
-            
+            <div class="align-self-center float-end">
             <a href="{% url 'logout' %}" class="a_btn">
-                <button type="submit" class="btn btn-sm btn-outline-primary float-right">Sign out</button>
+                <button type="submit" class="btn btn-sm btn-outline-primary ">Sign out</button>
             </a>
+        </div>
+           
                 {% endif %}
             {% block profile %}
 

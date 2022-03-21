@@ -26,20 +26,20 @@
     
     <form method = 'post'>
           {% csrf_token %}
-            <table class="question_table">
+            <table class="question_table" style="margin-top: -0.8em;" >
                 
                         
                 {% for field in form %}
                 
                 {% if field.label == "Title" %}
-                    
-                <td class="cell_left">
-                    {{field.label}}
-                    <br>
-                    {{field}}
-                </td>
+                <tr>
+                    <td class="cell_left">
+                        {{field.label}}
+                        <br>
+                        {{field}}
+                    </td>
             {%elif field.label == "Study" %}
-                <td class="study_skills">
+                <td class="study_skills ">
                     #{{field.label}}<br>
                     
                     {{field}}
@@ -48,14 +48,14 @@
             {%elif field.label == "Description" %}
             </tr>
             <tr class ="row_height_descr">
-            <td class="cell_left" rowspan="2">
+            <td class="cell_left " rowspan="2">
                 {{field.label}}
                 <br>
                 {{field}}
                 
             </td>
             {% elif field.label == "Skills"%}
-                <td class="study_skills">
+                <td class="study_skills" style="padding-top: 0.8em">
                     #{{field.label}}<br>
                     {{field}}
                 </div>
@@ -75,7 +75,6 @@
                             </div>
                         </div>
                     </div>
-                        <button class="btn btn-primary float-end in_btn" type = 'submit'>Send</button>
                         
                 </td>
             </tr>
@@ -87,7 +86,11 @@
             
             {% endfor %} 
         
-        </table>        
+        </table>
+        <div class="position-relative">
+        <button class="btn btn-primary float-bottom-right" type = 'submit'>Send</button>
+        </div>
+        
         <input type="hidden" id="question_colour" name="question_colour" value={{colour}}>
       </form>
 
@@ -98,11 +101,13 @@
 
 {% block map %}
 <h4>Students on campus</h4>
+
 {% for s in students_campus|slice:":3" %}
     {% include "hl/blocks/students_on_campus.html" %}
 {% endfor %}
+<div  class="floatertje_right"><a href="{% url 'available_students' %}" class="animated">Show all available students...</a></div>
 
-<div  class="floatertje_right"><a href="{% url 'available_students' %}">Show all available students...</a></div>
+
         
 
     
@@ -114,6 +119,7 @@
 <h4>Recent questions for you</h4>
             
 {% include "hl/blocks/questions_for_you.html" %}
+<div  class="floatertje_right"><a href="{% url 'questions_for_you' %}" class="animated">Show all questions for you...</a></div>
 
 {% endblock %}
 

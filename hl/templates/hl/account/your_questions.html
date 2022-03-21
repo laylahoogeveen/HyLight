@@ -1,0 +1,24 @@
+
+{% extends "layout_forum.html" %}
+{% load static %}
+
+{% block title %}
+    HyLight: forum
+{% endblock %}
+
+
+{% block middle %}
+
+
+    
+    <h4>Recent questions by you</h4>
+   
+    {% if questions_by_you|length < 1 %}
+    <div class="text-center">
+        It seems like you haven't asked any questions yet.
+    </div>
+    {% else %}
+    {% include "hl/blocks/questions_by_you.html" %}
+    {% endif %}
+        
+{% endblock %}

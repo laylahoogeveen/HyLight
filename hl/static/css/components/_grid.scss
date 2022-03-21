@@ -1,13 +1,18 @@
-
+.navbar {
+  margin: 0;
+  padding: 0;
+  background-color: #FFFFFF;
+  height: $search-height;
+}
 .row {
 
     &.all {
-      height: 100vh;
       background-color: $bg;
     }
     &.search-profile {
       background-color: #FFFFFF;
       height: $search-height;
+      position: relative;
     }
     &.full {
       padding:0;
@@ -15,7 +20,6 @@
     }
     &.greet {
       padding:0;
-      // padding-top: $padding / 2;
     }
   }
 
@@ -32,12 +36,8 @@
 
       &.searchje {
           vertical-align: middle;
+          display: inline-flex;
         }
-      
-      
-      @at-root .full {
-        height: $col_height;
-      }
 
       &.side {
         padding:0 0 0 $padding_side;
@@ -50,6 +50,11 @@
         padding:0 $padding_side 0 $padding;
       }
       
+    }
+    .bottom-page {
+      flex-direction: column;
+      // overflow: hidden;
+      // max-height: 40vh;
     }
 
 }

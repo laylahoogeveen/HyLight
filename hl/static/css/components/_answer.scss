@@ -17,7 +17,10 @@ $answer_size: $answer_size_top * 2;
     border-radius: 1.2em;
     display: none;
     animation: popUp 0.2s;
-    // display: grid;
+    
+    &.change_height {
+        height:fit-content;
+    }
 
     &::-webkit-scrollbar {
         width: 15px;
@@ -41,9 +44,10 @@ $answer_size: $answer_size_top * 2;
 .description_popup {
     display: inline-block;
     border-radius: 0.4em;
-    width: 80%;
+    width: 75%;
     margin: 1em;
     padding: 0.5em;
+    height:fit-content;
     background-color: rgb(210, 235, 240, 0.5);
     &.main_question {
         background-color: $bg;
@@ -53,14 +57,21 @@ $answer_size: $answer_size_top * 2;
 .user_popup {
     display: grid;
     position: relative;
-    width: 10%;
-    vertical-align: middle;
+    width: 15%;
+    // vertical-align: middle;
     align-self: center;
+    text-align: center;
 }
 
 .questiontje {
     align-content:center;
     display: inline-flex;
+    height: fit-content;
+    &.show_only {
+        align-self: center;
+        align-items: center;
+    }
+
 }
 
 .close {

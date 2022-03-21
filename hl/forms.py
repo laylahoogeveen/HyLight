@@ -104,7 +104,7 @@ class ProfileForm(forms.ModelForm):
         for f in self.fields:
             self.fields[f].required = False
             self.fields[f].help_text = False
-            # self.fields[f].widget.attrs['class'] = 'form-control'
+            self.fields[f].widget.attrs['class'] = 'default_value availability'
 
     class Meta:
         model = Profile
@@ -120,8 +120,8 @@ class QuestionForm(forms.ModelForm):
         for f in self.fields:
             self.fields[f].required = False
             self.fields[f].help_text = False
-            self.fields['skills'].widget.attrs['class'] = 'li ul question'
-            self.fields['study'].widget.attrs['class'] = 'li ul question'
+            self.fields['skills'].widget.attrs['class'] = 'li ul question django-select2'
+            self.fields['study'].widget.attrs['class'] = 'li ul question django-select2'
             self.fields['online'].widget.attrs['class'] = 'switch-button-checkbox'
 
     class Meta:
@@ -206,14 +206,14 @@ class ChangeAvailability(forms.ModelForm):
         for f in self.fields:
             self.fields[f].required = False
             self.fields[f].help_text = False
-            # self.fields['status'].widget.attrs['class'] = 'remove'
+            self.fields[f].widget.attrs['class'] = 'default_value availability'
             # self.fields['online'].widget.attrs['class'] = 'switch-button-checkbox'
             # self.fields['title'].initial = self.get_formtitle
 
     class Meta:
         model = Profile
   
-        fields = ['available']
+        fields = ['available', 'location']
         
 
 

@@ -55,14 +55,18 @@
                         <div class="toggle_container">
                             <button class="question_status answer">Comment on question</button>
                         </div>
-                        <div class="answer_popup">
+                        <div class="answer_popup change_height">
                             <div class="close_popup">
                                 <img class="close" src="{% static 'images/icons/kleur/close.svg' %}" >
                             </div>
                             <div class="questiontje">
                                 <div class="user_popup">
-                                    <span class="nearby_name" style="display:inline-block;">
+                                    <span class="nearby_name inline_block">
+                                        {%if not q.user.profile.avatar %}
+                                            <img class="question_ava" src="{% static 'images/icons/kleur/ava.svg' %}" ><br>
+                                            {% else %}
                                     <img class="question_ava" src="{{q.user.profile.avatar}}" ><br>
+                                    {% endif %}
                                         {{q.user.username}}
                                     </span>
                                 </div>
@@ -77,7 +81,7 @@
                             {% for c in q.get_all_comments %}
                                 <div class="questiontje">
                                     
-                                    {%if forloop.counter|divisibleby:2 %}
+                                    {%if forloop.counter|divisibleby:2 == False%}
                                     <div class="description_popup">
                                         {{c.description}}
                                         
@@ -86,7 +90,7 @@
                                     <div class="user_popup">
                                         <span class="nearby_name" style="display:inline-block;">
                                             {%if not c.user.profile.avatar %}
-                                                <img class="question_ava" src="{% static 'images/icons/kleur/ava.svg' %}" >
+                                                <img class="question_ava" src="{% static 'images/icons/kleur/ava.svg' %}" ><br>
                                                 <!-- {{q.user}} -->
                                             {% else %}
                                         <img class="question_ava" src="{{c.user.profile.avatar}}" ><br>
@@ -94,7 +98,7 @@
                                             {{c.user}}
                                         </span>
                                     </div>
-                                    {%if forloop.counter|divisibleby:2 == False %}
+                                    {%if forloop.counter|divisibleby:2 == True %}
                                     <div class="description_popup">
                                         {{c.description}}
                                         

@@ -4,44 +4,69 @@
   
     padding: 1em;
     background-color: $block;
+    display: block;
+    overflow: auto;
     width: 100%;
-    height: 100%;
-  
-  }
+    &.no-overflow {
+        // overflow: hidden;
+        // height: 97%;
+        margin-bottom:1em;
+    }
+    &.highlighted {
+        box-shadow: 0 0 14px $accent_rgba !important;
+        background-color: #fff9f6;
+        transition: ease-in-out;
+        // #C25A21;
+
+    }
+
+}
+.inner_block {
+    overflow: hidden;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2;
+}
 
 
 /* top bar */
 
 .top_bar_container {
-    text-align: right;
-    vertical-align: middle;
+    position: absolute;
+    display: inline-flex;
+    max-height: $search-height;
+    right: 1em;
 }
 
 .profile_buttons {
-    width: 40%;
-    // border: #2C7673 2px solid;
+    padding: 0.9em 0.4em 0.9em 0.4em;
     align-items: center;
-    display:inline-block;
+    display:inline-flex;
+    float: left;
+    vertical-align: top;
+    height: $search-height;
+    position:relative;
+    left: 0px;
+    &.no-padding {
+        padding: 0.4em 0 0.4em 0;
+    }
+    &.more-padding {
+        padding: 1.4em 0.4em 1.4em 0.4em;
+    }
 }
 
 .user_info {
-    width: 30%;
-    // border: #2C7673 2px solid;
     display: inline-flex;
-    align-items: center;
     text-align: center;
-    vertical-align: middle;
-    // width: 20%;
-    // margin: -1em;
-    margin-left: 1em;
-    margin-right: 1em;
+    vertical-align: top;
+    align-items: center;
+    margin: 0 1em 0 1em;
     height: $search-height;
   }
 
 .user_titles {
     display: inline-block;
-    width:300px;
-    max-width: 95%;
+    // width:300px;
     vertical-align: middle;
   }
 
@@ -49,8 +74,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* number of lines to show */
-            line-clamp: 2; 
+    -webkit-line-clamp: 1; /* number of lines to show */
+            line-clamp: 1; 
     -webkit-box-orient: vertical;
     line-height: 1.1;
 
@@ -90,3 +115,8 @@
     vertical-align: middle;
 }
 
+.float-bottom-right {
+    position: absolute;
+    bottom: 0.5em;
+    right: 0.8em;
+}

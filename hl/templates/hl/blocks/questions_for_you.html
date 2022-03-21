@@ -4,10 +4,7 @@
     <script src="{% static 'javascript/status.js' %}"></script>
     {% for q in questions %}
     <div class="questions_sm">            
-        <div class="position-relative">
-            <img class="light_icon small" src="{% static 'images/icons/light_white.svg' %}" >
-            <span class="hidden_text light_colour ">{{q.colour}}</span>
-        </div>
+        
         <div class="user_info_hover" id="{{user.username}}">
             
             
@@ -24,14 +21,12 @@
             {% endif %}
         </div>
         <div class="questions_ava">
-            <div>
-                <div class="position-relative">
+
+            <div class="d-inline-flex position-relative p-2">
+                <!-- <div class="position-absolute"> -->
                     <img class="light_icon small" src="{% static 'images/icons/light_white.svg' %}" >
                     <span class="hidden_text light_colour ">{{q.colour}}</span>
-                </div>
-            </div>
-
-
+                <!-- </div> -->
             {%if not q.user.profile.avatar %}
                 {% if q.user.profile.available == False %}
                     <img class="question_ava unavailable_border" src="{% static 'images/icons/kleur/ava.svg' %}" >
@@ -47,7 +42,9 @@
 
                 {%endif %}
             {% endif %}
-            
+            <img class="light_icon small" src="{% static 'images/icons/light_white.svg' %}" >
+            <span class="hidden_text light_colour ">{{q.colour}}</span>
+        </div>
         </div>
         <div class="questions_preview">
 
@@ -61,73 +58,11 @@
                     
                 </div>
                 {% if q.get_status_display == 'pending' %}
-                    <div class="toggle_center">
-                        <div class="toggle_container">
-                            <button class="question_status answer">Answer question</button>
-                        </div>
-                        <div class="answer_popup">
-                            <div class="close_popup">
-                                <img class="close" src="{% static 'images/icons/kleur/close.svg' %}" >
-                            </div>
-                            <div class="questiontje">
-                                <div class="user_popup">
-                                    <span class="nearby_name" style="display:inline-block;">
-                                    <img class="question_ava" src="{{q.user.profile.avatar}}" ><br>
-                                        {{q.user.username}}
-                                    </span>
-                                </div>
-                                
-                                <div class="description_popup main_question">
-                                    <span class="nearby_name">{{q.title}}</span>
-
-                                    {{q.description}}
-                                    
-                                </div>
-                            </div>
-                            {% for c in q.get_all_comments %}
-                                <div class="questiontje">
-                                    
-                                    {%if forloop.counter|divisibleby:2 %}
-                                    <div class="description_popup">
-                                        {{c.description}}
-                                        
-                                    </div>
-                                    {%endif%}
-                                    <div class="user_popup">
-                                        <span class="nearby_name" style="display:inline-block;">
-                                            {%if not c.user.profile.avatar %}
-                                                <img class="question_ava" src="{% static 'images/icons/kleur/ava.svg' %}" >
-                                                <!-- {{q.user}} -->
-                                            {% else %}
-                                        <img class="question_ava" src="{{c.user.profile.avatar}}" ><br>
-                                            {%endif%}
-                                            {{c.user}}
-                                        </span>
-                                    </div>
-                                    {%if forloop.counter|divisibleby:2 == False %}
-                                    <div class="description_popup">
-                                        {{c.description}}
-                                        
-                                    </div>
-                                    {%endif%}
-                                
-                                </div>
-                            {% endfor %}
-                            <span class="nearby_name">Your comment:</span>
-                            <form method = 'post'>
-                                {% csrf_token %}
-                            
-                            {% for field in comment_form %}
-                                {{field}}
-                            {% endfor %}
-                            <input type="hidden" id="questionID" name="questionID" value={{q.pk}}>
-                            <button class="btn btn-primary float-end in_btn" type = 'submit'>Send</button>
-                            <br>
-                            </form>
-                        </div>
-                    </div>
-
+                {% include "hl/blocks/answer_question.html" %}
+                {% else %}
+                {% include "hl/blocks/show_question.html" %}
                 {% endif %}
+
             </div>
             <div class="questions_right">
                 <div class="question_status location">

@@ -38,8 +38,7 @@ function selectMe() {
 
 function defaultValue() {
     $(".default_value").each(function(){
-        // $(this).closest('div').next().find('.hidden_text').show();
-        $(this).val($(this).next().text());
+        $(this).val($(this).next('.hidden_text').text());
     })
 }
 

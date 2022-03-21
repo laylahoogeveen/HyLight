@@ -2,8 +2,10 @@
 <div class="questions_container">
     <script src="{% static 'javascript/status.js' %}"></script>
     {%for u in users %}
+        {% if forloop.counter0 != 0 %}
+            <hr>
+        {% endif %}
         <div>
-            <div></div>
         <div class="questions_ava">
 
             {%if not u.profile.avatar %}
@@ -34,6 +36,6 @@
               </div>
         </div>
         
-    <hr>
+    
     {% endfor %}
 </div>
