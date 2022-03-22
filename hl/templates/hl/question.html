@@ -61,16 +61,12 @@
                 {% endfor %}
                 </div>
             {% for c in q.get_all_comments %}
-            {%if forloop.counter|divisibleby:2 == False %}
-                <div class="questiontje end-0 w-100 justify-content-end">
-            {% else %}
-                <div class="questiontje start-0 w-100 justify-content-start">
-            {% endif %}
                     
-                    {%if forloop.counter|divisibleby:2 == False %}
-                    <div class="description_popup w-auto">
-                        {{c.description}}
-                    </div>
+                {%if forloop.counter|divisibleby:2 == False %}
+                    <div class="questiontje end-0 w-100 justify-content-end">
+                        <div class="description_popup w-auto">
+                            {{c.description}}
+                        </div>
 
                         <div class="user_popup">
                             <span class="nearby_name inline_block">
@@ -82,74 +78,75 @@
                                 {{c.user}}
                             </span>
                         </div>
-                    {%endif%}
+                    </div>
+                {%else %}
+                    <div class="questiontje start-0 w-100 justify-content-start">
+                        <div class="user_popup">
+                            <span class="nearby_name inline_block">
+                                {%if not c.user.profile.avatar %}
+                                    <img class="question_ava" src="{% static 'images/icons/kleur/ava.svg' %}" >
+                                {% else %}
+                            <img class="question_ava" src="{{c.user.profile.avatar}}" ><br>
+                                {%endif%}
+                                {{c.user}}
+                            </span>
+                        </div>
 
-                    {%if forloop.counter|divisibleby:2 == True %}
-                    <div class="user_popup">
-                        <span class="nearby_name inline_block">
-                            {%if not c.user.profile.avatar %}
-                                <img class="question_ava" src="{% static 'images/icons/kleur/ava.svg' %}" >
-                            {% else %}
-                        <img class="question_ava" src="{{c.user.profile.avatar}}" ><br>
-                            {%endif%}
-                            {{c.user}}
-                        </span>
+                        <div class="description_popup w-auto">
+                            {{c.description}}
+                        </div>
                     </div>
-                    <div class="description_popup w-auto">
-                        {{c.description}}
-                        
-                    </div>
-                    {%endif%}
-                
-                </div>
+                {%endif%}
+            
+            
             {% endfor %}
+
             {% if q.get_status_display == 'pending' %}
-            {% if q.online != False %}
-            <form method = 'post'>
-                {% csrf_token %}
-            <div class="omw d-none"> 
-                    <!-- d-none  -->
-                {{comment_form.description}}
-                <div class="hidden_text">
-                {% if q.online == False %}
-                On my way{%if q.user.profile.location != None or q.user.profile.location != "" %} to {{q.user.profile.location}} {% endif %}to help you!
-                {% endif %}
-            </div>
-    
-            </div>
-            <input type="hidden" id="questionID" name="questionID" value={{q.pk}}>
-            <div class="text-center">
-                <p>
-                <button class="btn btn-primary align-self-center" type = 'submit'>
-                    On my way 
-                    {%if q.user.profile.location %}
-                        to {{q.user.profile.location}}
-                    {% endif %}
-                    to help you!
-                </button>
-            </p>
-                
-                {% else %}
-                <!-- zoom -->
+                {% if q.online != False %}
+                <form method = 'post'>
+                    {% csrf_token %}
+                    <div class="omw d-none"> 
+                            <!-- d-none  -->
+                        {{comment_form.description}}
+                        <div class="hidden_text">
+                            {% if q.online == False %}
+                                On my way{%if q.user.profile.location != None or q.user.profile.location != "" %} to {{q.user.profile.location}} {% endif %}to help you!
+                            {% endif %}
+                        </div>
+            
+                    </div>
+                    <input type="hidden" id="questionID" name="questionID" value={{q.pk}}>
+                    <div class="text-center">
+                        <p>
+                            <button class="btn btn-primary align-self-center" type = 'submit'>
+                                On my way 
+                                {%if q.user.profile.location %}
+                                    to {{q.user.profile.location}}
+                                {% endif %}
+                                to help you!
+                            </button>
+                        </p>
+                    </div>
+                </form>
+                    
+                <!-- else zoom -->
                 {% endif %}
                 
         
-                </form>
                 
-                    <span class="nearby_name">Your comment:</span>
-            </div>
+                
+            <span class="nearby_name">Your comment:</span>
             <form method = 'post'>
                 {% csrf_token %}
-            
-            {% for field in comment_form %}
-                {{field}}
-            {% endfor %}
-            <input type="hidden" id="questionID" name="questionID" value={{q.pk}}>
-            <button class="btn btn-primary float-end in_btn" type = 'submit'>Send</button>
-            <br>
+                
+                {% for field in comment_form %}
+                    {{field}}
+                {% endfor %}
+                <input type="hidden" id="questionID" name="questionID" value={{q.pk}}>
+                <button class="btn btn-primary float-end in_btn" type = 'submit'>Send</button>
+                <br>
             </form>
-        <!-- </div> -->
-            <!-- {% include "hl/blocks/show_question.html" %} -->
+  
             {% endif %}
 
         </div>

@@ -55,9 +55,8 @@
                     <span class="nearby_name inline_block" >
                         {%if not c.user.profile.avatar %}
                             <img class="question_ava" src="{% static 'images/icons/kleur/ava.svg' %}" ><br>
-                            {{q.user}}
                         {% else %}
-                    <img class="question_ava" src="{{c.user.profile.avatar}}" ><br>
+                            <img class="question_ava" src="{{c.user.profile.avatar}}" ><br>
                         {%endif%}
                         {{c.user}}
                     </span>
