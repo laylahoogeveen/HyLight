@@ -8,12 +8,11 @@ $(document).ready(function() {
     selectMe();
     defaultValue();
     
-    // $('.user_info_hover').hover( function() { $('#layla2').toggle(); } );
-    
 });
 
 $(document).ready(function (e) {
     $(".questions_ava").hover(function (e) {
+        $(this).css("cursor", "pointer");
         $(this).prev('.user_info_hover').show();
     }, function (e) {
         $(this).prev('.user_info_hover').hide();
@@ -26,7 +25,6 @@ function answerQuestion() {
     $(".question_status.answer").on('click', function(event){
         $(this).parent().next('.answer_popup').css('display', 'grid');
         $("#panel").show();
-        // toggleClass('expand_descr' );
     });
 
 }
@@ -59,12 +57,3 @@ function hideQuestion() {
     });
 
 }
-
-
-// function showDescription() {
-// $(".question_status.answer").on('click', function(event){
-//     $(this).prev().css('border', 'green 2px solid');
-//     // toggleClass('expand_descr' );
-// });
-
-// }

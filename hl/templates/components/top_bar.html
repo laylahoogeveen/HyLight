@@ -2,6 +2,7 @@
 <script src="{% static 'javascript/icon_links.js' %}"></script>
 
 
+
 <div class="row search-profile ">
 
     <div class="col-6 left searchje">
@@ -51,7 +52,7 @@
                                 
                                 Available
                                 {% if request.user.profile.location %}
-                                in {{ request.user.profile.location }}
+                                @{{ request.user.profile.location }}
                                 {% endif %}
                             </a>
                             {% else %}

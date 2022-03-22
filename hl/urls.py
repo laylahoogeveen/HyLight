@@ -9,6 +9,7 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("forum", views.forum, name="forum"),
     path("question/<int:question_pk>", views.question_details, name="question_details"),
+    path("profile/<int:user_pk>", views.profile_details, name="profile_details"),
     path("available_students", views.available_students, name="available_students"),
     path("questions_for_you", views.questions_for_you, name="questions_for_you"),
     path("questions_by_you", account.questions_by_you, name="questions_by_you"),

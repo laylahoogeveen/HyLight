@@ -1,0 +1,126 @@
+
+{% extends "layout_user_profile.html" %}
+{% load static %}
+
+{% block title %}
+    HyLight: profile of {{ u.username }}
+{% endblock %}
+
+
+{% block left %}
+<h6>
+    
+</h6>
+
+<h4>User info: {{u.username}}</h4>
+<table class="profile_info" width="100%">
+    <tr>
+        <td class="def">
+            Name:
+        </td>
+        <td>
+            {{u.first_name}} {{u.last_name}}
+        </td>
+        <td rowspan="4" class="d-justify-center" colspan="2">
+            {%if not u.profile.avatar %}
+                {% if u.profile.available == False %}
+                    <img class="round_icon unavailable_border profile_page" src="{% static 'images/icons/kleur/ava.svg' %}" >
+                {% else %}
+                <img class="round_icon available_border profile_page" src="{% static 'images/icons/kleur/ava.svg' %}" >
+            {%endif %}
+            {% else %}
+            {% if u.profile.available == False %}
+                <img class="round_icon unavailable_border profile_page" src="{{u.profile.avatar}}" >
+                {% else %}
+                <img class="round_icon available_border profile_page" src="{{u.profile.avatar}}" >
+
+                {%endif %}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td class="def text-nowrap">
+            Main qualities:
+        </td>
+        <td>
+            {{u.profile.title}}
+        </td>
+    </tr>
+   
+    <tr>
+        <td class="def">
+            Bio:
+        </td>
+        <td width="50%">
+            {{u.profile.bio}}
+        </td>
+    </tr>
+    <tr>
+        <td class="def">
+            Availability:
+        </td>
+        <td>
+            {{u.profile.get_availability}}
+            {% if u.profile.get_availability == "Available" and u.profile.location %}
+            @{{ u.profile.location }}
+            {% endif %}
+        </td>
+    </tr>
+
+ 
+</table>
+        
+{% endblock %}
+
+{% block right %}
+<h4>Educational background</h4>
+
+        {% if u.profile.get_current_studies %}
+            <div class="li_division">
+                <h6>Current studies</h6>
+                
+                <ul class="ul">
+                    {%for i in u.profile.get_current_studies %}
+                    
+                    <li class="li">
+                        {{i}}
+                    </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        {% endif %}
+
+        {% if u.profile.get_past_studies %}
+
+            <div class="li_division">
+
+                <h6>Past studies</h6>
+                <ul class="ul">
+                    {%for i in u.profile.get_past_studies %}
+                    
+                    <li class="li">
+                        {{i}}
+                    </li>
+                    {% endfor %}
+                </ul>
+                
+            </div>
+        {% endif %}
+
+        {% if u.profile.get_skills %}
+        <div class="li_division">
+            <h4>{{u.first_name}}'s skills</h4>
+            
+                <ul class="ul">
+                    {%for i in u.profile.get_skills %}
+                    <li class="li">
+                        {{i}}
+                    </li>
+                    {%endfor%}
+                </ul>
+
+        </div>
+    {% endif %}
+    
+{% endblock %}

@@ -61,6 +61,13 @@ body::-webkit-scrollbar-track {
   overflow: hidden;
   cursor: pointer;
 }
+.round_icon.profile_page {
+  height: 70%;
+  width: 70%;
+  display: grid;
+  vertical-align: middle;
+  align-self: center;
+}
 
 a.animated, a.nav_linkje {
   text-decoration: none;
@@ -228,6 +235,9 @@ ul.ul {
 .questions_left {
   display: inline-block;
   width: 70%;
+}
+.questions_left.max_width {
+  width: 98% !important;
 }
 
 .questions_right {

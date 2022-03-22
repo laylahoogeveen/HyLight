@@ -4,6 +4,7 @@ $(document).ready(function(){
     questionsByYou();
     notifications();
     notificationRedirect();
+    profileRedirect();
  });
 
 function makeClickable() {
@@ -28,6 +29,15 @@ function notificationRedirect() {
     $(".question_status.answer.notification_redirect").each(function(index){
         $(this).on("click", function(){
             var url = $(this).next(".hidden_text").text();
+            window.location.href=url;
+        });
+    });
+}
+
+function profileRedirect() {
+    $('.question_ava').each(function(i) {
+        $(this).on("click", function() {
+            var url = $(this).next(".hidden_text.user_profile_link").text().trim();
             window.location.href=url;
         });
     });

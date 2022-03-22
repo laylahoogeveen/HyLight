@@ -1,4 +1,5 @@
 {% load static %}
+<!-- <script src="{% static 'javascript/icon_links.js' %}"></script> -->
 
 <div class="offline_student_container">
     <div class="student_offline">
@@ -16,6 +17,7 @@
                 <img class="question_ava unavailable_border" src="{{s.profile.avatar}}" >
                 {% else %}
                 <img class="question_ava available_border" src="{{s.profile.avatar}}" >
+                <div class="hidden_text user_profile_link">/profile/{{s.pk}}</div>
 
                 {%endif %}
             {% endif %}

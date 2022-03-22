@@ -97,7 +97,7 @@ class Question(models.Model):
         (GREEN, '(0,255,0)'),
         (YELLOW, '(255,255,0)'),
         (BLUE, '(0,0,255)'),
-        (PURPLE, '(128,0,128)'),
+        (PURPLE, '(255,0,255)'),
     )
     
     title = models.CharField(max_length=100, null=True)

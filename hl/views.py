@@ -187,6 +187,14 @@ def question_details(request, question_pk):
 
     comment_form = CommentForm(request.POST)
     form2 = CommentForm(request.POST or None)
+
+    context = {
+        "q": question,
+        "comment_form": comment_form,
+        "addition": "individual",
+        "1column": True,
+    }
+
     if form2.is_valid():
         question_pk = request.POST['questionID']
         question = Question.objects.get(pk=question_pk)
@@ -197,14 +205,20 @@ def question_details(request, question_pk):
         question.status = Question.IN_PROGRESS
         question.save()
         make_comment_notification(comment_form, question)
-        
-        return HttpResponseRedirect(reverse('notifications'))
+        return render(request, "hl/question.html", context)
+        # return HttpResponseRedirect(reverse('notifications'))
 
+    return render(request, "hl/question.html", context)
+
+
+@login_required
+def profile_details(request, user_pk):
+    """Return page with profile of requested user"""
+
+    user = User.objects.get(pk=user_pk)
     context = {
-        "q": question,
-        "comment_form": comment_form,
-        "addition": "individual",
+        "u": user,
         "1column": True,
     }
 
-    return render(request, "hl/question.html", context)
+    return render(request, "hl/user_profile.html", context)
