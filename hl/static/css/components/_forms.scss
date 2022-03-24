@@ -19,6 +19,12 @@ $toggle_width: $toggle_half * 2;
       color: $bg;
       box-shadow: 0 0 12px $accent_rgba !important; 
     }
+
+    &.active {
+      background-color: $accent;
+      color: $bg;
+      box-shadow: 0 0 12px $accent_rgba !important; 
+    }
     &:active {
       background-color: $accent;
       color: $bg;
@@ -27,8 +33,37 @@ $toggle_width: $toggle_half * 2;
       margin-top: 1em;
       margin-bottom: 0.5em;
     }
+
+    &:after {
+      background-color: $accent;
+      color: $bg;
+      outline:0px !important;
+      -webkit-appearance:none;
+      box-shadow: 0 0 12px $accent_rgba !important; 
+    }
+    &:checked {
+      background-color: $accent;
+        color: $bg;
+        outline:0px !important;
+        -webkit-appearance:none;
+        box-shadow: 0 0 12px $accent_rgba !important; 
+    }
+
+    &.btn-primary {
+      &:checked {
+        background-color: $accent;
+        color: $bg;
+        outline: none;
+      }
+    }
   }
 
+.active {
+    background-color: $accent;
+    color: $bg;
+    border: none !important;
+    box-shadow: 0 0 12px $accent_rgba !important; 
+  }
 input[type=text] {
   &.form-control {
     background-color: #FFFFFF;
@@ -60,6 +95,15 @@ input[type=text] {
   }
 }
 
+input[type=radio]{
+    &.radio {
+          width: 100px;
+          height: 30px;
+          position: absolute;
+          opacity: 0;
+          cursor: pointer;
+    }
+  }
 
 textarea {
     &.form-control {  

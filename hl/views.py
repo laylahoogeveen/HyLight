@@ -195,18 +195,22 @@ def question_details(request, question_pk):
         "1column": True,
     }
 
-    if form2.is_valid():
+    if request.method == "POST" or None:
         question_pk = request.POST['questionID']
-        question = Question.objects.get(pk=question_pk)
-        comment_form = form2.save(commit=False)
-        comment_form.user = request.user
-        comment_form.save()  
-        question.comments.add(comment_form)
-        question.status = Question.IN_PROGRESS
-        question.save()
-        make_comment_notification(comment_form, question)
-        return render(request, "hl/question.html", context)
-        # return HttpResponseRedirect(reverse('notifications'))
+        print (question_pk)
+
+        if form2.is_valid():
+            question_pk = request.POST['questionID']
+            print (question_pk)
+            question = Question.objects.get(pk=question_pk)
+            comment_form = form2.save(commit=False)
+            comment_form.user = request.user
+            comment_form.save()  
+            question.comments.add(comment_form)
+            question.status = Question.IN_PROGRESS
+            question.save()
+            make_comment_notification(comment_form, question)
+            return HttpResponseRedirect(reverse('notifications'))
 
     return render(request, "hl/question.html", context)
 

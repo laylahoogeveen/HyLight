@@ -18,8 +18,9 @@
                         <img class="question_ava" src="{% static 'images/icons/kleur/ava.svg' %}" ><br>
                         {% else %}
                 <img class="question_ava" src="{{q.user.profile.avatar}}" ><br>
-                    {{q.user.username}}
+                    
                     {% endif %}
+                    {{q.user.username}}
                 </span>
             </div>
             
@@ -39,24 +40,25 @@
             {% for study in q.study.all %}
             <li class="li small">{{study}}</li>
             {% endfor %}
-            </div>
+        </div>
         {% for c in q.get_all_comments %}
             <div class="questiontje">
                 
-                {%if forloop.counter|divisibleby:2 == False %}
+                {% if forloop.counter|divisibleby:2 == False %}
+
                 <div class="description_popup">
                     {{c.description}}
-                    
                 </div>
-                {%endif%}
+
+                {% endif %}
                 <div class="user_popup">
                     <span class="nearby_name inline_block">
                         {%if not c.user.profile.avatar %}
                             <img class="question_ava" src="{% static 'images/icons/kleur/ava.svg' %}" >
-                            <!-- {{q.user}} -->
                         {% else %}
-                    <img class="question_ava" src="{{c.user.profile.avatar}}" ><br>
+                    <img class="question_ava" src="{{c.user.profile.avatar}}" >
                         {%endif%}
+                        <br>
                         {{c.user}}
                     </span>
                 </div>
@@ -69,33 +71,60 @@
             
             </div>
         {% endfor %}
-        {% if q.online != False %}
-        <form method = 'post'>
-            {% csrf_token %}
-        <div class="omw d-none"> 
-                <!-- d-none  -->
-            {{comment_form.description}}
-            <div class="hidden_text">
-            {% if q.online == False %}
-            On my way{%if q.user.profile.location != None or q.user.profile.location != "" %} to {{q.user.profile.location}} {% endif %}to help you!
-            {% endif %}
-        </div>
+        {% if q.online == False %}
 
-        </div>
-        <input type="hidden" id="questionID" name="questionID" value={{q.pk}}>
-        
-        <button class="btn btn-primary float-center" type = 'submit'>
-            On my way 
-            {%if q.user.profile.location %}
-                to {{q.user.profile.location}}
-            {% endif %}
-            to help you!
-        </button>
+        <!-- Omw -->
+        <form method = 'post' class="m-1">
+            {% csrf_token %}
+            <div class="omw d-none"> 
+                {{comment_form.description}}
+                <div class="hidden_text">
+                    On my way{%if q.user.profile.location != None or q.user.profile.location != "" %} to {{q.user.profile.location}} {% endif %}to help you!
+                </div>
+
+            </div>
+            <input type="hidden" id="questionID" name="questionID" value={{q.pk}}>
+            
+            <button class="btn btn-primary float-center" type = 'submit'>
+                On my way 
+                {%if q.user.profile.location %}
+                    to {{q.user.profile.location}}
+                {% endif %}
+                to help you!
+            </button>
+        </form>
+        <!-- meet me at -->
+        <form method = 'post' class="m-1">
+            {% csrf_token %}
+            <div class="omw d-none"> 
+                    <!-- d-none  -->
+                {{comment_form.description}}
+                <div class="hidden_text">
+                    {%if request.user.profile.location == None or request.user.profile.location == "" %}
+                    Come meet me asap!
+                    {% else %}
+                    Come meet me at {{request.user.location}}!
+                    {% endif %}
+                </div>
+
+            </div>
+            <input type="hidden" id="questionID" name="questionID" value={{q.pk}}>
+            
+            <button class="btn btn-primary float-center" type = 'submit'>
+                {%if request.user.profile.location == None or request.user.profile.location == "" %}
+                Come meet me asap!
+                {% else %}
+                Come meet me at {{request.user.profile.location}}!
+                {% endif %}
+            </button>
+        </form>
         {% else %}
+
+        <!--  -->
         {% endif %}
         <br>
 
-        </form>
+        
         <span class="nearby_name">Your comment:</span>
         <form method = 'post'>
             {% csrf_token %}

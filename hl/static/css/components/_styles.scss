@@ -277,10 +277,12 @@ ul {
   padding: 0.3em;
   margin: 0.2em;
   width: 100%;
+  font-size: 0.9em;
   &.location {
     padding: 0;
     background: none;
     color: $nav;
+    font-size: 1.1em !important;
   }
   &.answer, &.change {
     color: $accent;

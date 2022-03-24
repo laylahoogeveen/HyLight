@@ -256,11 +256,13 @@ ul.ul {
   padding: 0.3em;
   margin: 0.2em;
   width: 100%;
+  font-size: 0.9em;
 }
 .question_status.location {
   padding: 0;
   background: none;
   color: #2C7673;
+  font-size: 1.1em !important;
 }
 .question_status.answer, .question_status.change {
   color: #C25A21;
@@ -472,6 +474,11 @@ ul.ul {
   color: #D2EBF0;
   box-shadow: 0 0 12px rgba(194, 90, 33, 0.5) !important;
 }
+.btn.active {
+  background-color: #C25A21;
+  color: #D2EBF0;
+  box-shadow: 0 0 12px rgba(194, 90, 33, 0.5) !important;
+}
 .btn:active {
   background-color: #C25A21;
   color: #D2EBF0;
@@ -479,6 +486,32 @@ ul.ul {
 .btn.send {
   margin-top: 1em;
   margin-bottom: 0.5em;
+}
+.btn:after {
+  background-color: #C25A21;
+  color: #D2EBF0;
+  outline: 0px !important;
+  -webkit-appearance: none;
+  box-shadow: 0 0 12px rgba(194, 90, 33, 0.5) !important;
+}
+.btn:checked {
+  background-color: #C25A21;
+  color: #D2EBF0;
+  outline: 0px !important;
+  -webkit-appearance: none;
+  box-shadow: 0 0 12px rgba(194, 90, 33, 0.5) !important;
+}
+.btn.btn-primary:checked {
+  background-color: #C25A21;
+  color: #D2EBF0;
+  outline: none;
+}
+
+.active {
+  background-color: #C25A21;
+  color: #D2EBF0;
+  border: none !important;
+  box-shadow: 0 0 12px rgba(194, 90, 33, 0.5) !important;
 }
 
 input[type=text].form-control {
@@ -507,6 +540,14 @@ input[type=text].search_form::placeholder {
 }
 input[type=text].search_form:focus {
   outline: none;
+}
+
+input[type=radio].radio {
+  width: 100px;
+  height: 30px;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
 }
 
 textarea.form-control {

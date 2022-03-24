@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.db.models import Q
 from .models import Question, Notification
-import datetime
 import random
+from time import time
 
 
 def get_students():

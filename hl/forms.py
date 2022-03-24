@@ -172,7 +172,7 @@ class ChangeQuestionForm(forms.ModelForm):
         for f in self.fields:
             self.fields[f].required = False
             self.fields[f].help_text = False
-            self.fields['status'].widget.attrs['class'] = 'remove'
+            self.fields['status'].widget.attrs['class'] = 'remove radio'
             self.fields['online'].widget.attrs['class'] = 'switch-button-checkbox'
             # self.fields['title'].initial = self.get_formtitle
             # form = form

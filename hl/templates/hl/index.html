@@ -33,13 +33,13 @@
                 
                 {% if field.label == "Title" %}
                 <tr>
-                    <td class="cell_left">
+                    <td class="cell_left p-2">
                         {{field.label}}
                         <br>
                         {{field}}
                     </td>
             {%elif field.label == "Study" %}
-                <td class="study_skills ">
+                <td class="study_skills p-2">
                     #{{field.label}}<br>
                     
                     {{field}}
@@ -48,14 +48,14 @@
             {%elif field.label == "Description" %}
             </tr>
             <tr class ="row_height_descr">
-            <td class="cell_left " rowspan="2">
+            <td class="cell_left p-2 " rowspan="2">
                 {{field.label}}
                 <br>
                 {{field}}
                 
             </td>
             {% elif field.label == "Skills"%}
-                <td class="study_skills" style="padding-top: 0.8em">
+                <td class="study_skills p-2" style="padding-top: 0.8em">
                     #{{field.label}}<br>
                     {{field}}
                 </div>
@@ -72,9 +72,12 @@
                             <div class="switch-button">
                                 {{field}}
                                 <label class="switch-button-label" for=""><span class="switch-button-label-span">on campus</span></label>
+
                             </div>
                         </div>
+
                     </div>
+                    <button class="btn btn-primary float-end" type = 'submit'>Send</button>
                         
                 </td>
             </tr>
@@ -87,9 +90,6 @@
             {% endfor %} 
         
         </table>
-        <div class="position-relative">
-        <button class="btn btn-primary float-bottom-right" type = 'submit'>Send</button>
-        </div>
         
         <input type="hidden" id="question_colour" name="question_colour" value={{colour}}>
       </form>
@@ -106,10 +106,6 @@
     {% include "hl/blocks/students_on_campus.html" %}
 {% endfor %}
 <div  class="floatertje_right"><a href="{% url 'available_students' %}" class="animated">Show all available students...</a></div>
-
-
-        
-
     
 
 {% endblock %}

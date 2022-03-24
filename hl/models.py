@@ -127,9 +127,9 @@ class Question(models.Model):
     @property
     def get_location(self):
         if self.online == True:
-            return "On campus"
-        else:
             return "Online"
+        else:
+            return "On campus"
 
     @property
     def get_skills(self):

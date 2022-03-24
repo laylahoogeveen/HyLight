@@ -56,15 +56,18 @@
             {%elif field.label == "Status" %}
             <tr>
                 <td>
-            {{field.label}}<br>
-            {%for choice in change_question_form.status %}
-            {%if q.get_status_display == choice.choice_label %}
-            <span class="selectme">{{ choice }}</span>
-            {%else %}
-            {{ choice }}
-            {% endif %}
-            {%endfor%}
-            
+                    {{field.label}}<br>
+                    
+
+                    {%for choice in change_question_form.status %}
+                    {%if q.get_status_display == choice.choice_label %}
+                        <span class="selectme">{{ choice }}</span>
+                    {%else %}
+                        {{ choice }}
+                    {% endif %}
+                    {%endfor%}
+                   
+                </td>
             </tr>
             
             {% endif %}

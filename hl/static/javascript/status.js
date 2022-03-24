@@ -7,8 +7,41 @@ $(document).ready(function() {
     hideQuestion();
     selectMe();
     defaultValue();
+    changeLabel();
     
 });
+
+function changeLabel() {
+
+    // styling
+//     $(".remove.radio").each(function(){
+//         $(this).addClass('btn');
+// })
+    $(".remove.radio").each(function(){
+            $(this).parent().addClass('btn').addClass('btn-outline-primary');
+    })
+
+    // initial value entered by user
+    $(".remove.radio").each(function(){
+        if($(this).is(':checked')) {
+            $(this).parent('label').addClass('active');
+        }
+    })
+    
+    $(".remove.radio").on('click', function(event){
+        $( this ).attr( 'checked', true );
+        if($(this).is(':checked')) {
+
+            $(this).parent('label').parent().parent().children().each(function(){
+                $(this).removeClass('active');
+                $(this).children().removeClass('active');
+                $(this).children().children().removeClass('active');
+            })
+
+            $(this).parent('.btn.btn-outline-primary').addClass('active');
+        }
+    });
+}
 
 $(document).ready(function (e) {
     $(".questions_ava").hover(function (e) {
@@ -18,8 +51,6 @@ $(document).ready(function (e) {
         $(this).prev('.user_info_hover').hide();
     });
 });
-
-
 
 function answerQuestion() {
     $(".question_status.answer").on('click', function(event){
@@ -33,6 +64,8 @@ function selectMe() {
     var span = $(".selectme");
     $(span).find("input:radio").prop('checked', true);
 }
+
+
 
 function defaultValue() {
     $(".default_value").each(function(){
