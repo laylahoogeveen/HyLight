@@ -8,13 +8,13 @@ from django.contrib.auth.decorators import login_required
 from .forms import QuestionForm, CommentForm, ChangeQuestionForm
 from .helpers import get_user_questions, dummy_text, get_unused, \
     get_students, get_user_questions_unanswered, make_question_notification, make_comment_notification, \
-        get_user_questions_unanswered
+        get_user_questions_unanswered, create_comment, change_status
 from .models import Profile, Question, Notification, Skill
 
 @login_required
 def index(request):
-    """Return index page with question form and overview over available 
-    students and questions with tags user is subscribed to"""
+    '''Return index page with question form and overview over available 
+    students and questions with tags user is subscribed to'''
 
     if request.user.is_authenticated == False:
         return HttpResponseRedirect(reverse("login"))
@@ -42,7 +42,7 @@ def index(request):
                 for skill in skills:
                     formpje.skills.add(skill)
                 for study in studies:
-                    formpje.skills.add(study)
+                    formpje.study.add(study)
 
                 formpje.save()
 
@@ -54,20 +54,12 @@ def index(request):
             form2 = CommentForm(request.POST or None)
             if form2.is_valid():
                 question_pk = request.POST['questionID']
-                question = Question.objects.get(pk=question_pk)
-                comment_form = form2.save(commit=False)
-                comment_form.user = request.user
-                comment_form.save()  
-                question.comments.add(comment_form)
-                question.status = Question.IN_PROGRESS
-                question.save()
-
-                #Create notification for user that originally posted this question
-                make_comment_notification(comment_form, question)
+                create_comment(form2, question_pk, request.user)
                 return HttpResponseRedirect(reverse('index'))
 
-            
+    # For showing a list of available students on the home page
     students_campus = User.objects.filter(profile__available=True).exclude(profile__location=None)
+
     users = get_students()
     form = QuestionForm(request.POST)
     comment_form = CommentForm(request.POST)
@@ -89,7 +81,7 @@ def index(request):
 
 @login_required
 def forum(request):
-    """Return forum page with all questions"""
+    '''Return forum page with all questions'''
 
     comment_form = CommentForm(request.POST)
     form2 = CommentForm(request.POST or None)
@@ -101,16 +93,7 @@ def forum(request):
         if 'title' not in request.POST:
             if form2.is_valid():
                 question_pk = request.POST['questionID']
-                question = Question.objects.get(pk=question_pk)
-                comment_form = form2.save(commit=False)
-                comment_form.user = request.user
-                comment_form.save()  
-                question.comments.add(comment_form)
-                question.status = Question.IN_PROGRESS
-                question.save()
-
-                #Create notification for users subscribed to tags
-                make_comment_notification(comment_form, question)
+                create_comment(form2, question_pk, request.user)
 
                 return HttpResponseRedirect(reverse('forum'))
         else:
@@ -133,20 +116,14 @@ def forum(request):
 
 @login_required
 def questions_for_you(request):
-    """Return overview of questions with tags to which the user is subscribed"""
+    '''Return overview of questions with tags to which the user is subscribed'''
 
     comment_form = CommentForm(request.POST)
     form2 = CommentForm(request.POST or None)
     if form2.is_valid():
         question_pk = request.POST['questionID']
-        question = Question.objects.get(pk=question_pk)
-        comment_form = form2.save(commit=False)
-        comment_form.user = request.user
-        comment_form.save()  
-        question.comments.add(comment_form)
-        question.status = Question.IN_PROGRESS
-        question.save()
-        make_comment_notification(comment_form, question)
+        create_comment(form2, question_pk, request.user)
+
         return HttpResponseRedirect(reverse('index'))
 
     context = {
@@ -160,7 +137,8 @@ def questions_for_you(request):
 
 @login_required
 def available_students(request):
-    """Return forum page with all questions"""
+    '''Return forum page with all questions'''
+
     students_campus = User.objects.filter(profile__available=True).exclude(profile__location=None)
 
     context = {
@@ -172,17 +150,14 @@ def available_students(request):
 
 @login_required
 def question_details(request, question_pk):
-    """Return page with requested question"""
+    '''Return page with requested question'''
 
     question = Question.objects.get(pk=question_pk)
 
     for n in Notification.objects.filter(user=request.user):
-        print (n.question.pk)
-        print (n.question.title)
         if n.question.pk == question_pk:
-            print ('yo')
-            n.seen = True
-            n.save()
+            # n.seen = True
+            # n.save()
             n.delete()
 
     comment_form = CommentForm(request.POST)
@@ -197,19 +172,11 @@ def question_details(request, question_pk):
 
     if request.method == "POST" or None:
         question_pk = request.POST['questionID']
-        print (question_pk)
 
         if form2.is_valid():
             question_pk = request.POST['questionID']
-            print (question_pk)
-            question = Question.objects.get(pk=question_pk)
-            comment_form = form2.save(commit=False)
-            comment_form.user = request.user
-            comment_form.save()  
-            question.comments.add(comment_form)
-            question.status = Question.IN_PROGRESS
-            question.save()
-            make_comment_notification(comment_form, question)
+            create_comment(form2, question_pk, request.user)
+
             return HttpResponseRedirect(reverse('notifications'))
 
     return render(request, "hl/question.html", context)
@@ -217,7 +184,7 @@ def question_details(request, question_pk):
 
 @login_required
 def profile_details(request, user_pk):
-    """Return page with profile of requested user"""
+    '''Return page with profile of requested user'''
 
     user = User.objects.get(pk=user_pk)
     context = {

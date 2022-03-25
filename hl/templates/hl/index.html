@@ -15,6 +15,8 @@
 
 
 {% block ask %}
+
+<!-- Semi-transparent background of background when showing pop -->
 <div id="panel"></div>
 
 <div class="position-relative">
@@ -27,65 +29,55 @@
     <form method = 'post'>
           {% csrf_token %}
             <table class="question_table" style="margin-top: -0.8em;" >
-                
                         
                 {% for field in form %}
                 
-                {% if field.label == "Title" %}
-                <tr>
-                    <td class="cell_left p-2">
-                        {{field.label}}
-                        <br>
-                        {{field}}
-                    </td>
-            {%elif field.label == "Study" %}
-                <td class="study_skills p-2">
-                    #{{field.label}}<br>
-                    
-                    {{field}}
-                </td>
-            </tr>
-            {%elif field.label == "Description" %}
-            </tr>
-            <tr class ="row_height_descr">
-            <td class="cell_left p-2 " rowspan="2">
-                {{field.label}}
-                <br>
-                {{field}}
-                
-            </td>
-            {% elif field.label == "Skills"%}
-                <td class="study_skills p-2" style="padding-top: 0.8em">
-                    #{{field.label}}<br>
-                    {{field}}
-                </div>
-                    
-                </td>
-            </tr>
-            
-            {%elif field.label == "Online" %}
-            
-            <tr>
-                <td>
-                    <div class="toggle_center">
-                        <div class="toggle_container">
-                            <div class="switch-button">
+                    {% if field.label == "Title" %}
+                        <tr>
+                            <td class="cell_left p-2">
+                                {{field.label}}
+                                <br>
                                 {{field}}
-                                <label class="switch-button-label" for=""><span class="switch-button-label-span">on campus</span></label>
-
+                            </td>
+                    {%elif field.label == "Study" %}
+                            <td class="study_skills p-2">
+                                #{{field.label}}<br>
+                                
+                                {{field}}
+                            </td>
+                        </tr>
+                    {%elif field.label == "Description" %}
+                        </tr>
+                        <tr class ="row_height_descr">
+                            <td class="cell_left p-2 " rowspan="2">
+                                {{field.label}}
+                                <br>
+                    {{field}}
+                            </td>
+                {% elif field.label == "Skills"%}
+                            <td class="study_skills p-2" style="padding-top: 0.8em">
+                                #{{field.label}}<br>
+                                {{field}}                                
+                            </td>
+                    </tr>
+                
+                {%elif field.label == "Online" %}
+                
+                <tr>
+                    <td>
+                        <div class="toggle_center">
+                            <div class="toggle_container">
+                                <div class="switch-button">
+                                    {{field}}
+                                    <label class="switch-button-label" for=""><span class="switch-button-label-span">on campus</span></label>
+                                </div>
                             </div>
                         </div>
+                        <button class="btn btn-primary float-end" type = 'submit'>Send</button>
+                    </td>
+                </tr>
 
-                    </div>
-                    <button class="btn btn-primary float-end" type = 'submit'>Send</button>
-                        
-                </td>
-            </tr>
-
-        
-            
-            
-            {% endif %}
+                {% endif %}
             
             {% endfor %} 
         

@@ -13,10 +13,6 @@ $(document).ready(function() {
 
 function changeLabel() {
 
-    // styling
-//     $(".remove.radio").each(function(){
-//         $(this).addClass('btn');
-// })
     $(".remove.radio").each(function(){
             $(this).parent().addClass('btn').addClass('btn-outline-primary');
     })
@@ -78,7 +74,6 @@ function modifyQuestion() {
         $(this).prev('.change_question_popup').css('display', 'grid');
 
         $("#panel").show();
-        // toggleClass('expand_descr' );
     });
 
 }
@@ -86,6 +81,9 @@ function modifyQuestion() {
 function hideQuestion() {
     $(".close_popup").on('click', function(event){
         $(this).parent().hide(100);
+        $("#panel").fadeOut("fast");
+    });
+    $(".activate_light").on('click', function(event){
         $("#panel").fadeOut("fast");
     });
 

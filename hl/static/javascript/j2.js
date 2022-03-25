@@ -1,7 +1,6 @@
 $(document).ready(function() {
     defaultValue();
     selectMe();
-    answerHeight();
 });
 
 

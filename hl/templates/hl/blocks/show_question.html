@@ -17,54 +17,56 @@
         <div class="questiontje">
             <div class="user_popup">
                 <span class="nearby_name inline_block">
-                {%if not q.user.profile.avatar %}
-                <img class="question_ava" src="{% static 'images/icons/kleur/ava.svg' %}" ><br>
-                {% else %}
-                <img class="question_ava" src="{{q.user.profile.avatar}}" ><br>
-                {% endif %}
-                    {{q.user.username}}
+                    <span class="d-inline-block position-relative p-2">
+                        <img class="light_icon small" src="{% static 'images/icons/light_white.svg' %}" >
+                        <span class="hidden_text light_colour ">{{q.colour}}</span>
+                            {%if not q.user.profile.avatar %}
+                                <img class="question_ava" src="{% static 'images/icons/kleur/ava.svg' %}" >
+                            {% else %}
+                                <img class="question_ava" src="{{q.user.profile.avatar}}" >
+                    </span>
+                            {% endif %}
+                    <br>{{q.user.username}}
                 </span>
             </div>
             
             <div class="description_popup main_question ">
                 <span class="nearby_name">{{q.title}}</span>
-
                 {{q.description}}
-                
             </div>
         </div>
+
         <div class=" d-flex w-80 justify-content-center tags_container">
             <span class="light_text">Tags:</span>
-            {% for skill in q.skills.all %}
-            <li class="li small">{{skill}}</li>
-            {% endfor %}
-            {% for study in q.study.all %}
-            <li class="li small">{{study}}</li>
-            {% endfor %}
-            </div>
+                {% for skill in q.skills.all %}
+                    <li class="li small">{{skill}}</li>
+                {% endfor %}
+                {% for study in q.study.all %}
+                    <li class="li small">{{study}}</li>
+                {% endfor %}
+        </div>
+        
         {% for c in q.get_all_comments %}
             <div class="questiontje show_only">
                 
                 {%if forloop.counter|divisibleby:2 %}
                 <div class="description_popup">
                     {{c.description}}
-                    
                 </div>
                 {%endif%}
                 <div class="user_popup">
                     <span class="nearby_name inline_block" >
                         {%if not c.user.profile.avatar %}
-                            <img class="question_ava" src="{% static 'images/icons/kleur/ava.svg' %}" ><br>
+                            <img class="question_ava" src="{% static 'images/icons/kleur/ava.svg' %}" >
                         {% else %}
-                            <img class="question_ava" src="{{c.user.profile.avatar}}" ><br>
+                            <img class="question_ava" src="{{c.user.profile.avatar}}" >
                         {%endif%}
-                        {{c.user}}
+                        <br>{{c.user}}
                     </span>
                 </div>
                 {%if forloop.counter|divisibleby:2 == False %}
                 <div class="description_popup">
                     {{c.description}}
-                    
                 </div>
                 {%endif%}
             

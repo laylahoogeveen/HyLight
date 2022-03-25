@@ -11,7 +11,7 @@ from .helpers import study_to_skills, remove_all_skills, make_question_notificat
 from formtools.wizard.views import SessionWizardView
 
 def register(request):
-    """ Register user, first step with basic info """
+    '''Register user, first step with basic info'''
 
     if request.method == "GET":
 
@@ -33,7 +33,7 @@ def register(request):
     return render(request, "hl/account/register.html", {"form": form})
 
 def register_next(request):
-    """ Register user, second step with study details """
+    '''Register user, second step with study details'''
     
     user_username = request.session['username']
     creating = request.session['creating']
@@ -60,9 +60,8 @@ def register_next(request):
             profile.user = user
             profile = form.save()
 
-            # sign in user after most important info has been added
+            # Sign in user after most important info has been added
             login(request, user)
-            # authenticate(request, username=user.username, password=user.password)
 
             #Add skills belonging to user's study programmes to user skills
             study_to_skills(user)
@@ -74,7 +73,8 @@ def register_next(request):
 
 
 def register_last(request):
-    """ Register user, last step: adding/removing skills """
+    '''Register user, last step: adding/removing skills'''
+
     message = None
     if 'creating' in request.session:
         if request.session['creating'] == True:
@@ -105,7 +105,7 @@ def register_success(request):
 
 
 def change_skills(request):
-    """ Change user's skills """
+    '''Change user's skills'''
    
     form = RegisterForm3(request.POST, instance=request.user.profile)
     if request.method == 'POST':
@@ -124,7 +124,7 @@ def change_skills(request):
 
 
 def login_view(request):
-    """ Log in user """
+    '''Log in user'''
 
     if request.method == "POST":
         username = request.POST["username"]
@@ -146,7 +146,7 @@ def login_view(request):
 
 @login_required
 def logout_view(request):
-    """ Log out user"""
+    '''Log out user'''
 
     logout(request)
     return render(request, "hl/account/login.html", {"message": "Signed out."})
@@ -154,7 +154,7 @@ def logout_view(request):
 
 @login_required
 def profile(request):
-    """ Return user info """
+    '''Return user info'''
 
     user = User.objects.filter(username=request.user).first()
 
@@ -180,7 +180,8 @@ def profile(request):
 
 @login_required
 def questions_by_you(request):
-    """Return forum page with questions asked by user"""
+    '''Return forum page with questions asked by user'''
+
     comment_form = CommentForm(request.POST)
     form2 = CommentForm(request.POST or None)
     change_question_form = ChangeQuestionForm(request.POST or None)
@@ -218,7 +219,7 @@ def questions_by_you(request):
 
 @login_required
 def notifications(request):
-    """Show list of notifications"""
+    '''Show list of notifications'''
 
     questions = Notification.objects.filter(user=request.user, seen=False).exclude(comment__isnull=False)
     comments = Notification.objects.filter(user=request.user, seen=False).exclude(comment__isnull=True)
@@ -240,7 +241,7 @@ def notifications(request):
 
 
 def seen_notifications(request):
-    """Show list of past notifications"""
+    '''Show list of past notifications'''
 
     questions = Notification.objects.filter(user=request.user, seen=True).exclude(comment__isnull=False).order_by('-posted')
     comments = Notification.objects.filter(user=request.user, seen=True).exclude(comment__isnull=True).order_by('-posted')
