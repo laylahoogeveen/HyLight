@@ -298,6 +298,7 @@ ul.ul {
   height: 4em;
   display: inline-flex;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .questions_sm {
@@ -316,6 +317,23 @@ ul.ul {
   font-size: 0.8em;
   line-height: 1em;
   margin: 0;
+  text-align: center;
+  display: none;
+  animation: popUp 0.05s;
+}
+
+.light_info_hover {
+  border-radius: 0.5em;
+  z-index: 4;
+  color: #2C7673;
+  box-shadow: 0.15em 0.15em 0.6em rgba(0, 0, 0, 0.08);
+  padding: 0.2em;
+  position: absolute;
+  max-width: 40%;
+  background-color: #FFFFFF;
+  font-size: 0.9em;
+  margin: 0;
+  right: 0;
   text-align: center;
   display: none;
   animation: popUp 0.05s;

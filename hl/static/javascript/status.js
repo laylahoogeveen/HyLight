@@ -48,6 +48,16 @@ $(document).ready(function (e) {
     });
 });
 
+
+$(document).ready(function (a) {
+    $("#question_light").hover(function (a) {
+        $(this).css("cursor", "pointer");
+        $('#light_explanation').show();
+    }, function (a) {
+        $('#light_explanation').hide();
+    });
+});
+
 function answerQuestion() {
     $(".question_status.answer").on('click', function(event){
         $(this).parent().next('.answer_popup').css('display', 'grid');

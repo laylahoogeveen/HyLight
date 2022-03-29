@@ -86,7 +86,7 @@ def dummy_text():
     lol = "LOL"
     test ="Goede vraag... Geen idee eigenlijk. Misschien lukt het wel als je het op een totaal andere manier aanpakt"
     chat = ["Hi"] * 13
-    thx = ["Thank you so much for helping me out with all this."]
+    thx = "Thank you so much for helping me out with all this."
 
     
 
